@@ -5,13 +5,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    @apply selection:bg-lime selection:text-black;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
     cursor: default;
   }
   h1, h2, h3, h4 {
-    @apply font-display;
+    @apply font-display tracking-tight;
   }
 }
 @layer components {
@@ -22,7 +23,7 @@
     @apply shadow-neo;
   }
   .neo-btn {
-    @apply neo-border neo-shadow px-6 py-3 rounded-2xl font-bold transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-neo-lg flex items-center justify-center gap-2;
+    @apply neo-border neo-shadow px-4 py-2 md:px-6 md:py-3 rounded-2xl font-bold transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-neo-lg flex items-center justify-center gap-2 text-sm md:text-base;
   }
   .glass-nav {
     @apply sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b-3 border-black;
@@ -36,10 +37,6 @@
     background-image: url('https://images.unsplash.com/photo-1590595978583-39b73b490244?auto=format&fit=crop&q=40&w=400');
     background-repeat: repeat;
     background-size: 250px;
-  }
-  .neo-mask {
-    mask-image: linear-gradient(to bottom, black, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
   }
 }
 @layer utilities {
@@ -57,6 +54,9 @@
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
     @apply bg-black/30 rounded-full hover:bg-black/50 transition-colors;
+  }
+  .leading-tight-mobile {
+    @apply leading-[1.0] sm:leading-tight;
   }
 }
 [data-radix-portal] {
