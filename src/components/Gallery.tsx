@@ -11,9 +11,22 @@ export function Gallery() {
     setSelectedMotif(item);
     setIsModalOpen(true);
   };
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
   return (
     <section id="gallery" className="relative w-full py-20 md:py-40 bg-lime/10 border-y-3 border-black overflow-hidden">
-      <div className="absolute inset-0 bg-pattern-batik opacity-[0.05] pointer-events-none" />
+      <div className="absolute inset-0 bg-pattern-batik pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-20 md:mb-32 space-y-6">
           <h2 className="text-5xl sm:text-7xl md:text-8xl font-display font-bold uppercase tracking-tighter leading-none">
@@ -23,24 +36,29 @@ export function Gallery() {
             Eksplorasi khazanah budaya Nusantara melalui arsip digital motif batik kami yang terus berkembang.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14"
+        >
           {galleryItems.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
+              variants={itemVariants}
               className="h-full"
             >
               <NeoCard animate className="h-full bg-white rounded-3xl flex flex-col group cursor-default">
                 <div
                   className="aspect-video relative overflow-hidden border-b-3 border-black bg-gray-100 cursor-pointer rounded-t-3xl"
                   onClick={() => handleOpenDetail(item)}
+                  role="button"
+                  aria-label={`Lihat gambar motif ${item.name}`}
                 >
                   <img
                     src={item.imageUrl}
-                    alt={item.name}
+                    alt={`Contoh motif batik ${item.name} dari ${item.origin}`}
                     className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700 ease-in-out"
                   />
                   <div className="absolute top-5 left-5 bg-white neo-border px-4 py-1.5 text-xs md:text-sm font-black uppercase shadow-neo-sm rounded-3xl tracking-widest">
@@ -60,6 +78,7 @@ export function Gallery() {
                   <div className="pt-8 flex justify-between items-center border-t-3 border-dashed border-gray-200">
                     <button
                       onClick={() => handleOpenDetail(item)}
+                      aria-label={`Buka arsip detail untuk ${item.name}`}
                       className="text-black font-black text-sm md:text-base uppercase tracking-widest hover:text-coral transition-colors flex items-center gap-3 group/btn"
                     >
                       LIHAT ARSIP
@@ -68,7 +87,7 @@ export function Gallery() {
                     <button
                       onClick={() => handleOpenDetail(item)}
                       className="w-12 h-12 md:w-16 md:h-16 rounded-3xl bg-black text-white flex items-center justify-center neo-border cursor-pointer hover:bg-lime hover:text-black transition-all active:scale-90 shadow-neo-sm"
-                      aria-label={`Lihat detail ${item.name}`}
+                      aria-label={`Tampilkan informasi selengkapnya tentang ${item.name}`}
                     >
                       <ArrowRight className="w-6 h-6 md:w-8 md:h-8" />
                     </button>
@@ -77,7 +96,7 @@ export function Gallery() {
               </NeoCard>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
       <BatikDetailModal
         isOpen={isModalOpen}

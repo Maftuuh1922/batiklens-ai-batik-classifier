@@ -53,14 +53,14 @@ export function Scanner() {
   return (
     <section id="scanner" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32 overflow-visible scroll-mt-24">
       <div aria-live="polite" className="sr-only">
-        {state === 'idle' && "Scanner is ready to upload."}
-        {state === 'scanning' && "Analyzing the uploaded batik motif..."}
-        {state === 'result' && `Identification complete. Result: ${result?.name}.`}
+        {state === 'idle' && "Scanner siap untuk mengunggah gambar batik."}
+        {state === 'scanning' && "Sedang menganalisis motif batik Nusantara..."}
+        {state === 'result' && `Identifikasi selesai. Hasil: ${result?.name}.`}
       </div>
-      <motion.div 
+      <motion.div
         animate={{ x: [-15, 15, -15] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-10 -left-10 opacity-10 text-coral pointer-events-none hidden lg:block"
+        className="absolute top-10 -left-10 text-coral pointer-events-none hidden lg:block opacity-[0.05]"
       >
         <Cloud size={160} fill="currentColor" />
       </motion.div>
@@ -87,9 +87,9 @@ export function Scanner() {
                     isDragActive ? 'bg-lime/20 border-lime shadow-neo-sm' : 'bg-gray-50 hover:bg-gray-100 hover:shadow-neo-sm'
                   }`}
                 >
-                  <div className="absolute inset-0 bg-pattern-parang opacity-[0.03] pointer-events-none" />
-                  <input {...getInputProps()} />
-                  <div className="bg-coral p-5 md:p-8 neo-border rounded-4xl relative z-10 text-white shadow-neo group-hover:-translate-y-2 transition-transform">
+                  <div className="absolute inset-0 bg-pattern-parang pointer-events-none" />
+                  <input {...getInputProps()} aria-label="Unggah gambar batik" />
+                  <div className="bg-coral p-5 md:p-8 neo-border rounded-4xl relative z-10 text-white shadow-neo-sm group-hover:-translate-y-2 transition-transform">
                     <Upload className="w-12 h-12 md:w-16 md:h-16" />
                   </div>
                   <div className="text-center relative z-10 space-y-2">
@@ -103,7 +103,7 @@ export function Scanner() {
               <motion.div
                 key="scanning"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                animate={{ opacity: 1, transition: { delay: 0.2 } }}
                 exit={{ opacity: 0 }}
                 className="w-full h-full flex flex-col items-center justify-center gap-8 md:gap-12 py-12 flex-grow"
               >
@@ -138,12 +138,12 @@ export function Scanner() {
               <motion.div
                 key="result"
                 initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
                 exit={{ opacity: 0 }}
                 className="w-full h-full flex flex-col lg:flex-row gap-8 lg:gap-16 items-center lg:items-stretch justify-center p-2 flex-grow"
               >
                 <div className="w-full lg:w-1/2 neo-border rounded-3xl overflow-hidden shadow-neo-sm bg-gray-100 aspect-square max-w-[450px] shrink-0">
-                  <img src={result.imageUrl} alt={result.name} className="w-full h-full object-cover" />
+                  <img src={result.imageUrl} alt={`Motif ${result.name} terdeteksi`} className="w-full h-full object-cover" />
                 </div>
                 <div className="w-full flex flex-col justify-center space-y-6 text-left p-2 lg:p-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -156,24 +156,24 @@ export function Scanner() {
                     {result.description}
                   </p>
                   <div className="bg-gray-50 p-6 md:p-8 neo-border rounded-3xl flex gap-4 italic text-sm md:text-base relative overflow-hidden group shadow-neo-sm">
-                    <div className="absolute inset-0 bg-pattern-batik opacity-[0.02] pointer-events-none" />
+                    <div className="absolute inset-0 bg-pattern-batik pointer-events-none" />
                     <div className="bg-coral/10 p-2 rounded-xl h-fit relative z-10 shrink-0 border border-coral/20">
-                      <Info className="w-5 h-5 md:w-6 md:h-6 text-coral" />
+                      <Info className="w-5 h-5 md:w-6 md:h-6 text-coral" aria-hidden="true" />
                     </div>
                     <p className="leading-relaxed relative z-10"><strong>Filosofi:</strong> {result.philosophy}</p>
                   </div>
                   <div className="pt-4 flex flex-col sm:flex-row gap-4">
-                    <button 
-                      onClick={reset} 
-                      className="neo-btn bg-black text-white px-8 py-4 rounded-3xl text-base md:text-lg flex-1 sm:flex-none"
-                      aria-label="Scan ulang gambar baru"
+                    <button
+                      onClick={reset}
+                      className="neo-btn bg-black text-white px-8 py-4 rounded-3xl text-base md:text-lg flex-1 sm:flex-none shadow-neo-sm"
+                      aria-label="Lakukan pemindaian ulang gambar baru"
                     >
                       <RefreshCcw className="w-5 h-5 mr-2" /> Scan Lagi
                     </button>
                     <button
                       onClick={() => setIsDetailOpen(true)}
-                      className="neo-btn bg-white text-black px-8 py-4 rounded-3xl text-base md:text-lg flex-1 sm:flex-none group"
-                      aria-label={`Lihat detail lengkap tentang ${result.name}`}
+                      className="neo-btn bg-white text-black px-8 py-4 rounded-3xl text-base md:text-lg flex-1 sm:flex-none group shadow-neo-sm"
+                      aria-label={`Lihat detail budaya lengkap tentang ${result.name}`}
                     >
                       Detail Lengkap <ArrowUpRight className="w-5 h-5 ml-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </button>

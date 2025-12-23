@@ -57,13 +57,13 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
       <div className="w-full lg:w-1/2 h-[40vh] sm:h-80 lg:h-full relative overflow-hidden lg:border-r-3 border-b-3 lg:border-b-0 border-black shrink-0 lg:rounded-l-4xl">
         <img
           src={motif.imageUrl}
-          alt={motif.name}
+          alt={`Visual detail motif batik ${motif.name}`}
           className="w-full h-full object-cover transition-transform duration-[2000ms] hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:hidden" />
         <div className="absolute bottom-6 left-6 lg:top-8 lg:bottom-auto flex flex-col gap-3 z-20">
           <Badge className="bg-lime text-black neo-border px-4 py-1.5 font-black shadow-neo-sm rounded-3xl text-xs md:text-sm">
-            <MapPin className="w-4 h-4 mr-2" /> {motif.origin}
+            <MapPin className="w-4 h-4 mr-2" aria-hidden="true" /> {motif.origin}
           </Badge>
           {motif.confidence && (
             <Badge className="bg-coral text-white neo-border px-4 py-1.5 font-black shadow-neo-sm rounded-3xl text-xs md:text-sm">
@@ -73,7 +73,7 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
         </div>
       </div>
       <div className="flex-1 h-full flex flex-col bg-white overflow-hidden relative">
-        <div className="absolute inset-0 bg-pattern-parang opacity-[0.03] pointer-events-none" />
+        <div className="absolute inset-0 bg-pattern-parang pointer-events-none" />
         <div className="flex-grow overflow-y-auto p-6 md:p-8 lg:p-12 scrollbar-thin scrollbar-thumb-black/20 overscroll-contain">
           <div className="space-y-10 md:space-y-12 max-w-2xl mx-auto lg:mx-0">
             <div className="space-y-6">
@@ -88,14 +88,14 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
             <div className="space-y-10">
               <div className="space-y-4">
                 <div className="flex items-center gap-4 text-coral">
-                  <ScrollText className="w-8 h-8 stroke-[3px]" />
+                  <ScrollText className="w-8 h-8 stroke-[3px]" aria-hidden="true" />
                   <h3 className="font-display font-bold text-xl lg:text-2xl uppercase tracking-tight underline decoration-lime decoration-4 underline-offset-4">
                     Filosofi & Makna
                   </h3>
                 </div>
                 <div className="bg-lime/10 neo-border p-6 lg:p-8 rounded-3xl relative group overflow-hidden shadow-neo-sm hover:shadow-neo transition-all">
                   <div className="absolute top-0 right-0 p-3 opacity-5 rotate-12 group-hover:rotate-45 transition-transform duration-500">
-                    <ScrollText size={80} />
+                    <ScrollText size={80} aria-hidden="true" />
                   </div>
                   <p className="font-medium text-xl lg:text-2xl leading-relaxed italic text-black/90 relative z-10">
                     "{motif.philosophy}"
@@ -104,7 +104,7 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
               </div>
               <div className="space-y-4">
                 <div className="flex items-center gap-4 text-black">
-                  <History className="w-8 h-8 stroke-[3px]" />
+                  <History className="w-8 h-8 stroke-[3px]" aria-hidden="true" />
                   <h3 className="font-display font-bold text-xl lg:text-2xl uppercase tracking-tight underline decoration-coral decoration-4 underline-offset-4">
                     Konteks Sejarah
                   </h3>
@@ -119,7 +119,7 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
             <div className="pt-10 border-t-3 border-dashed border-black/10">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-10 h-10 bg-black neo-border rounded-2xl flex items-center justify-center text-[9px] font-black text-coral rotate-45 shadow-neo-sm">
-                  <div className="-rotate-45">BL</div>
+                  <div className="-rotate-45" aria-hidden="true">BL</div>
                 </div>
                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-black/30 text-center">
                   BatikLens Cultural Archive • Preserving Heritage through AI
@@ -161,7 +161,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
             <button
               onClick={onClose}
               className="absolute top-5 right-5 bg-white neo-border p-2.5 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90 outline-none focus:ring-0"
-              aria-label="Close sheet"
+              aria-label="Tutup detail"
             >
               <X className="w-5 h-5" />
             </button>
@@ -189,7 +189,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
           <button
             onClick={onClose}
             className="absolute top-6 right-6 bg-white neo-border p-3 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90 flex items-center justify-center group outline-none focus:ring-0"
-            aria-label="Close dialog"
+            aria-label="Tutup detail"
           >
             <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
           </button>

@@ -10,18 +10,14 @@ interface NeoCardProps {
 export function NeoCard({ children, className, animate = false }: NeoCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-  // Mouse position values
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  // Smooth springs for fluid motion
   const mouseX = useSpring(x, { stiffness: 300, damping: 30 });
   const mouseY = useSpring(y, { stiffness: 300, damping: 30 });
-  // Transforms for 3D rotation - Evaluated via function mapping to ensure stability across resizing
-  const rotateX = useTransform(mouseY, (val) => isMobile ? 0 : val * -20);
-  const rotateY = useTransform(mouseX, (val) => isMobile ? 0 : val * 20);
-  // Dynamic shadow that follows the "light" source
-  const shadowX = useTransform(mouseX, (val) => isMobile ? 6 : 6 + (val * -8));
-  const shadowY = useTransform(mouseY, (val) => isMobile ? 6 : 6 + (val * -8));
+  const rotateX = useTransform(mouseY, (val) => isMobile ? 0 : val * -15);
+  const rotateY = useTransform(mouseX, (val) => isMobile ? 0 : val * 15);
+  const shadowX = useTransform(mouseX, (val) => isMobile ? 4 : 4 + (val * -6));
+  const shadowY = useTransform(mouseY, (val) => isMobile ? 4 : 4 + (val * -6));
   const dynamicShadow = useTransform(
     [shadowX, shadowY],
     ([sx, sy]) => `${sx}px ${sy}px 0px 0px #000000`

@@ -5,28 +5,42 @@ import { ArrowRight, Zap, Shield, Globe, Sparkles } from 'lucide-react';
 export function Hero() {
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 500], [0, -150]);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+  const itemVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
   return (
     <section id="home" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
       <motion.div
         style={{ y: yParallax }}
-        className="absolute inset-0 bg-pattern-parang opacity-[0.05] pointer-events-none -z-10"
+        className="absolute inset-0 bg-pattern-parang pointer-events-none -z-10"
       />
       <div className="py-12 md:py-20 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
           className="relative z-10 space-y-6 md:space-y-8 text-left"
         >
-          <div className="inline-flex items-center gap-3 bg-lime neo-border shadow-neo-sm px-4 py-1.5 rounded-3xl text-xs font-black uppercase tracking-[0.25em]">
+          <motion.div variants={itemVariants} className="inline-flex items-center gap-3 bg-lime neo-border shadow-neo-sm px-4 py-1.5 rounded-3xl text-xs font-black uppercase tracking-[0.25em]">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-40"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-black"></span>
             </span>
             KECERDASAN BUDAYA
-          </div>
-          <div className="space-y-2">
+          </motion.div>
+          <motion.div variants={itemVariants} className="space-y-2">
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-[900] leading-tight tracking-normal uppercase break-words whitespace-normal flex flex-col">
               <span>IDENTIFIKASI</span>
               <span>
@@ -34,12 +48,12 @@ export function Hero() {
                 {" INSTAN."}
               </span>
             </h1>
-          </div>
-          <p className="text-lg md:text-xl font-medium text-muted-foreground max-w-lg line-clamp-3 leading-relaxed border-l-6 border-lime pl-6 md:pl-8">
+          </motion.div>
+          <motion.p variants={itemVariants} className="text-lg md:text-xl font-medium text-muted-foreground max-w-lg line-clamp-3 leading-relaxed border-l-6 border-lime pl-6 md:pl-8">
             Ungkap asal daerah dan filosofi sakral di balik setiap helai kain Nusantara dengan presisi Vision AI termutakhir.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <a href="#scanner" className="neo-btn bg-coral text-white text-lg md:text-xl px-8 py-3 md:py-5 group rounded-3xl shadow-neo transition-all hover:shadow-neo-lg">
+          </motion.p>
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
+            <a href="#scanner" aria-label="Mulai scan batik Anda" className="neo-btn bg-coral text-white text-lg md:text-xl px-8 py-3 md:py-5 group rounded-3xl shadow-neo-sm transition-all hover:shadow-neo-lg">
               Mulai Scan
               <motion.div
                 animate={{ x: [0, 8, 0] }}
@@ -48,14 +62,14 @@ export function Hero() {
                 <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
               </motion.div>
             </a>
-            <Button variant="outline" className="neo-btn bg-white text-black text-lg md:text-xl px-8 py-3 md:py-5 rounded-3xl shadow-neo group hover:shadow-neo-lg" asChild>
+            <Button variant="outline" aria-label="Lihat katalog motif batik" className="neo-btn bg-white text-black text-lg md:text-xl px-8 py-3 md:py-5 rounded-3xl shadow-neo-sm group hover:shadow-neo-lg" asChild>
               <a href="#gallery">
                 Katalog
                 <Sparkles className="w-5 h-5 ml-2 group-hover:text-coral transition-colors" />
               </a>
             </Button>
-          </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-4 pt-8 border-t-3 border-black/5">
+          </motion.div>
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-x-8 gap-y-4 pt-8 border-t-3 border-black/5">
             {[
               { icon: Zap, text: "Analisis Instan" },
               { icon: Shield, text: "Akurasi Tinggi" },
@@ -63,39 +77,39 @@ export function Hero() {
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 font-black italic text-xs md:text-sm tracking-tight uppercase group">
                 <div className="bg-lime p-1.5 neo-border rounded-lg group-hover:rotate-12 transition-transform">
-                  <item.icon className="w-4 h-4 md:w-5 md:h-5 text-black stroke-[3px]" />
+                  <item.icon className="w-4 h-4 md:w-5 md:h-5 text-black stroke-[3px]" aria-hidden="true" />
                 </div>
                 {item.text}
               </div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
+          initial={{ opacity: 0, scale: 0.95, rotate: 2 }}
           whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.2, type: "spring", bounce: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.4, type: "spring", bounce: 0.3 }}
           className="relative px-2 sm:px-8 mt-10 lg:mt-0"
         >
-          <div className="absolute -inset-2 md:-inset-4 bg-pattern-batik opacity-[0.04] neo-border -z-10 rounded-4xl rotate-2 overflow-hidden" />
+          <div className="absolute -inset-2 md:-inset-4 bg-pattern-batik neo-border -z-10 rounded-4xl rotate-2 overflow-hidden" />
           <div className="absolute -inset-2 md:-inset-4 bg-lime/10 neo-border -z-20 rounded-4xl -rotate-1 overflow-hidden" />
-          <div className="neo-border shadow-neo-lg bg-coral rounded-4xl aspect-video relative overflow-hidden group">
+          <div className="neo-border shadow-neo-sm bg-coral rounded-4xl aspect-video relative overflow-hidden group">
             <img
               src="https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=95&w=1200"
-              alt="Indonesian Batik Excellence"
+              alt="Indonesian Batik Excellence Preview"
               className="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100 ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-              className="absolute -top-6 -right-6 sm:-top-12 sm:-right-12 w-20 h-20 sm:w-36 sm:h-36 bg-lime neo-border rounded-full flex items-center justify-center p-3 text-center shadow-neo-lg z-20 pointer-events-none"
+              className="absolute -top-6 -right-6 sm:-top-12 sm:-right-12 w-20 h-20 sm:w-36 sm:h-36 bg-lime neo-border rounded-full flex items-center justify-center p-3 text-center shadow-neo-sm z-20 pointer-events-none"
             >
               <p className="font-display font-black text-[6px] sm:text-[8px] leading-tight uppercase tracking-widest text-black">
                 • ASLI • TEKNOLOGI LOKAL • WARISAN DUNIA • BATIK LENS AI •
               </p>
             </motion.div>
-            <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8 bg-white neo-border p-4 md:p-6 rounded-3xl transition-all duration-500 z-10 shadow-neo">
+            <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8 bg-white neo-border p-4 md:p-6 rounded-3xl transition-all duration-500 z-10 shadow-neo-sm">
               <div className="flex justify-between items-start mb-2">
                 <div className="space-y-1 text-left">
                   <p className="font-display font-black text-[10px] md:text-sm text-coral uppercase tracking-tighter">SCAN_RESULT: PARANG</p>

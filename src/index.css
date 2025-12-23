@@ -17,7 +17,6 @@
     @apply font-display tracking-tight;
     overflow-wrap: break-word;
   }
-  /* Scroll offset for sticky nav */
   section {
     scroll-margin-top: 7rem;
   }
@@ -33,7 +32,7 @@
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .neo-shadow {
-    @apply shadow-neo;
+    @apply shadow-neo-sm;
     transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .neo-btn {
@@ -46,11 +45,13 @@
     background-image: url('https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=40&w=600');
     background-repeat: repeat;
     background-size: 300px;
+    opacity: 0.03;
   }
   .bg-pattern-parang {
     background-image: url('https://images.unsplash.com/photo-1590595978583-39b73b490244?auto=format&fit=crop&q=40&w=400');
     background-repeat: repeat;
     background-size: 250px;
+    opacity: 0.03;
   }
 }
 @layer utilities {
@@ -74,12 +75,8 @@
   .scrollbar-thin::-webkit-scrollbar-thumb {
     @apply bg-black/30 rounded-full hover:bg-black/50 transition-colors;
   }
-  /* Ensure content doesn't jitter on modal open */
   body[style*="overflow: hidden"] {
     padding-right: 0px !important;
-  }
-  .dialog-content-open {
-    @apply animate-in fade-in zoom-in-95 duration-300;
   }
 }
 [data-radix-portal] {
