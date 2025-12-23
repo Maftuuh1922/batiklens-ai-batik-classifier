@@ -9,14 +9,12 @@ import {
   DialogOverlay,
 } from "@/components/ui/dialog";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-  SheetPortal,
-  SheetOverlay,
-} from "@/components/ui/sheet";
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+} from "@/components/ui/drawer";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MapPin, History, ScrollText, Loader2 } from "lucide-react";
@@ -47,8 +45,8 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
   }
   return (
     <motion.div
-      initial={false} // Perceived performance optimization
-      animate={{ opacity: 1, y: 0 }}
+      initial={isMobile ? false : { opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: isMobile ? 40 : 0 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className="w-full flex flex-col lg:flex-row h-full overflow-hidden"
@@ -108,7 +106,7 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
                 </div>
               </div>
             </div>
-            <div className="pt-8 border-t-2 border-dashed border-black/10 flex flex-col items-center gap-2">
+            <div className="pt-8 border-t-2 border-dashed border-black/10 flex flex-col items-center gap-2 pb-10 lg:pb-0">
               <div className="w-8 h-8 bg-black neo-border rounded-xl flex items-center justify-center text-[8px] font-black text-coral rotate-45 shadow-neo-sm">
                 <div className="-rotate-45">BL</div>
               </div>
@@ -137,7 +135,6 @@ interface BatikDetailModalProps {
 }
 export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalProps) {
   const isMobile = useIsMobile();
-  // Robust scroll locking for multi-instance scenarios
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -159,27 +156,22 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
   );
   if (isMobile) {
     return (
-      <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-        <SheetPortal>
-          <SheetOverlay className="neo-modal-overlay" />
-          <SheetContent
-            side="bottom"
-            className="z-[1001] h-[94vh] w-full p-0 border-3 border-black border-b-0 rounded-t-[32px] bg-white overflow-hidden outline-none flex flex-col shadow-none [&>button:last-child]:hidden"
-          >
-            <SheetHeader className="sr-only">
-              <SheetTitle>{motif?.name || "Detail Batik"}</SheetTitle>
-              <SheetDescription>Detail Budaya Batik Nusantara</SheetDescription>
-            </SheetHeader>
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-black/20 rounded-full z-50 hover:bg-black/40 transition-colors cursor-pointer" />
+      <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
+        <DrawerContent className="h-[94vh]">
+          <DrawerHeader className="sr-only">
+            <DrawerTitle>{motif?.name || "Detail Batik"}</DrawerTitle>
+            <DrawerDescription>Detail Budaya Batik Nusantara</DrawerDescription>
+          </DrawerHeader>
+          <div className="relative flex-grow overflow-hidden flex flex-col">
             {CloseButton}
             <div className="flex-grow overflow-hidden">
               <AnimatePresence mode="wait">
                 <ModalContent key={motif?.name || 'empty'} motif={motif} isMobile={isMobile} />
               </AnimatePresence>
             </div>
-          </SheetContent>
-        </SheetPortal>
-      </Sheet>
+          </div>
+        </DrawerContent>
+      </Drawer>
     );
   }
   return (
