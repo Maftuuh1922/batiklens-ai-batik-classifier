@@ -26,7 +26,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
   if (!motif) return null;
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl p-0 neo-border neo-shadow bg-white overflow-hidden outline-none sm:rounded-2xl">
+      <DialogContent className="max-w-4xl p-0 neo-border neo-shadow bg-white overflow-hidden outline-none sm:rounded-2xl rounded-2xl">
         <DialogDescription className="sr-only">
           Detail informasi mengenai motif batik {motif.name}, termasuk asal usul, filosofi, dan sejarahnya.
         </DialogDescription>
@@ -40,18 +40,18 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
               className="w-full h-full object-cover"
             />
             <div className="absolute top-4 left-4 flex flex-col gap-2">
-              <Badge className="bg-lime text-black neo-border px-3 py-1 font-black shadow-neo-sm">
+              <Badge className="bg-lime text-black neo-border px-3 py-1 font-black shadow-neo-sm rounded-2xl">
                 <MapPin className="w-3 h-3 mr-1" /> {motif.origin}
               </Badge>
               {motif.confidence && (
-                <Badge className="bg-coral text-black neo-border px-3 py-1 font-black shadow-neo-sm">
+                <Badge className="bg-coral text-white neo-border px-3 py-1 font-black shadow-neo-sm rounded-2xl">
                   {motif.confidence}% MATCH
                 </Badge>
               )}
             </div>
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 bg-white neo-border p-2 rounded-lg hover:bg-coral transition-colors shadow-neo-sm lg:hidden z-20"
+              className="absolute top-4 right-4 bg-white neo-border p-2 rounded-2xl hover:bg-coral hover:text-white transition-colors shadow-neo-sm lg:hidden z-20"
             >
               <X className="w-5 h-5" />
             </button>
@@ -61,7 +61,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
             <div className="hidden lg:flex justify-end mb-4">
               <button
                 onClick={onClose}
-                className="bg-white neo-border p-2 rounded-lg hover:bg-coral transition-colors shadow-neo-sm"
+                className="bg-white neo-border p-2 rounded-2xl hover:bg-coral hover:text-white transition-colors shadow-neo-sm"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -73,7 +73,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
               className="space-y-8"
             >
               <div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold uppercase tracking-tighter leading-tight mb-3">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold uppercase tracking-tighter leading-tight mb-3 text-coral">
                   {motif.name}
                 </h2>
                 <p className="text-base sm:text-lg font-medium text-muted-foreground leading-relaxed">
@@ -104,7 +104,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
                 </div>
               </div>
               <div className="pt-6">
-                <div className="p-4 bg-gray-50 neo-border rounded-xl text-center text-[10px] font-black uppercase tracking-widest opacity-60">
+                <div className="p-4 bg-gray-50 neo-border rounded-2xl text-center text-[10px] font-black uppercase tracking-widest opacity-60">
                   BatikLens Cultural Heritage Archive • 2025
                 </div>
               </div>

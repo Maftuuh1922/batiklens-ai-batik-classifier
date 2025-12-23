@@ -10,7 +10,10 @@ export default {
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
-        coral: '#FF8E72',
+        coral: {
+          DEFAULT: '#A0522D', // Sienna Base
+          light: '#D2691E',   // Chocolate/Accent
+        },
         lime: '#A3E635',
         background: '#F3F4F6',
         foreground: '#000000',

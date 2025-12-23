@@ -20,7 +20,7 @@ export function Hero() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="relative z-10 space-y-8 md:space-y-10"
         >
-          <div className="inline-flex items-center gap-2 bg-lime neo-border neo-shadow-sm px-4 py-1.5 rounded-full text-xs md:text-sm font-black uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 bg-lime neo-border neo-shadow-sm px-4 py-1.5 rounded-2xl text-xs md:text-sm font-black uppercase tracking-widest">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-black"></span>
@@ -28,7 +28,7 @@ export function Hero() {
             AI-POWERED HERITAGE
           </div>
           <div className="space-y-4">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[1.1] md:leading-[1.0] lg:leading-[0.9] xl:leading-[0.85] tracking-tighter">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[1.1] md:leading-[1.0] lg:leading-[0.9] xl:leading-[0.85] tracking-tighter uppercase">
               IDENTIFIKASI <br />
               <span className="text-coral underline decoration-black decoration-4 sm:decoration-8 underline-offset-4 sm:underline-offset-8">BATIK</span> INSTAN.
             </h1>
@@ -37,7 +37,7 @@ export function Hero() {
             Gunakan kekuatan Vision AI untuk mengungkap identitas, daerah asal, dan filosofi di balik setiap helai kain Batik Nusantara.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4">
-            <a href="#scanner" className="neo-btn bg-coral text-black text-lg md:text-xl px-8 md:px-10 py-6 md:py-8 group">
+            <a href="#scanner" className="neo-btn bg-coral text-white text-lg md:text-xl px-8 md:px-10 py-6 md:py-8 group rounded-2xl">
               Mulai Scan
               <motion.span
                 animate={{ x: [0, 5, 0] }}
@@ -46,7 +46,7 @@ export function Hero() {
                 <ArrowRight className="w-6 h-6" />
               </motion.span>
             </a>
-            <Button variant="outline" className="neo-btn bg-white text-black text-lg md:text-xl px-8 md:px-10 py-6 md:py-8" asChild>
+            <Button variant="outline" className="neo-btn bg-white text-black text-lg md:text-xl px-8 md:px-10 py-6 md:py-8 rounded-2xl" asChild>
               <a href="#gallery">Katalog Motif</a>
             </Button>
           </div>
@@ -70,8 +70,8 @@ export function Hero() {
           className="relative px-2 sm:px-4 mt-8 lg:mt-0"
         >
           {/* Decorative Kawung Border Frame */}
-          <div className="absolute -inset-4 bg-pattern-batik opacity-10 neo-border -z-10 rounded-3xl" />
-          <div className="neo-border neo-shadow-lg bg-coral rounded-3xl aspect-[4/5] relative overflow-hidden group">
+          <div className="absolute -inset-4 bg-pattern-batik opacity-10 neo-border -z-10 rounded-2xl" />
+          <div className="neo-border neo-shadow-lg bg-coral rounded-2xl aspect-[4/5] relative overflow-hidden group">
             <img
               src="https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=80&w=1000"
               alt="Indonesian Batik Excellence"
@@ -87,8 +87,8 @@ export function Hero() {
                 ASLI INDONESIA • TEKNOLOGI LOKAL • WARISAN DUNIA • BATIK LENS •
               </p>
             </motion.div>
-            <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm neo-border p-4 rounded-xl translate-y-2 lg:translate-y-20 lg:group-hover:translate-y-0 transition-transform duration-500 z-10">
-              <p className="font-display font-bold text-sm">MOTIF: PARANG RUSAK</p>
+            <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm neo-border p-4 rounded-2xl translate-y-2 lg:translate-y-20 lg:group-hover:translate-y-0 transition-transform duration-500 z-10">
+              <p className="font-display font-bold text-sm text-coral">MOTIF: PARANG RUSAK</p>
               <p className="text-xs font-mono text-muted-foreground">SCAN CONFIDENCE: 100%</p>
             </div>
           </div>

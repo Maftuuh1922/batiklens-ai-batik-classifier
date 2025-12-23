@@ -46,11 +46,11 @@ export function Scanner() {
         <Cloud size={160} fill="currentColor" />
       </motion.div>
       <div className="text-center mb-12 space-y-4 relative z-10">
-        <h2 className="text-4xl md:text-5xl font-display font-bold">UJI MOTIF ANDA</h2>
+        <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight">UJI MOTIF ANDA</h2>
         <p className="text-lg font-medium text-muted-foreground">Unggah foto kain batik untuk dianalisis oleh AI kami.</p>
       </div>
       <div className="min-h-[500px] flex flex-col relative z-10">
-        <NeoCard className="p-8 md:p-12 flex-grow flex flex-col items-center justify-center relative overflow-hidden">
+        <NeoCard className="p-8 md:p-12 flex-grow flex flex-col items-center justify-center relative overflow-hidden rounded-2xl">
           <AnimatePresence mode="wait">
             {state === 'idle' && (
               <motion.div
@@ -68,7 +68,7 @@ export function Scanner() {
                 >
                   <div className="absolute inset-0 bg-pattern-parang opacity-[0.05] pointer-events-none" />
                   <input {...getInputProps()} />
-                  <div className="bg-coral p-4 neo-border rounded-xl relative z-10">
+                  <div className="bg-coral p-4 neo-border rounded-2xl relative z-10 text-white">
                     <Upload className="w-10 h-10" />
                   </div>
                   <div className="text-center relative z-10">
@@ -102,10 +102,10 @@ export function Scanner() {
                   />
                 </div>
                 <div className="text-center space-y-2">
-                  <motion.h3 
+                  <motion.h3
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
-                    className="text-2xl font-display font-bold"
+                    className="text-2xl font-display font-bold text-coral"
                   >
                     MENGANALISIS...
                   </motion.h3>
@@ -122,7 +122,7 @@ export function Scanner() {
                 className="w-full space-y-8"
               >
                 <div className="flex flex-col md:flex-row gap-8 items-stretch">
-                  <div className="w-full md:w-2/5 neo-border rounded-xl overflow-hidden shadow-neo-sm bg-gray-100 aspect-square md:aspect-auto">
+                  <div className="w-full md:w-2/5 neo-border rounded-2xl overflow-hidden shadow-neo-sm bg-gray-100 aspect-square md:aspect-auto">
                     <img src={result.imageUrl} alt={result.name} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 flex flex-col justify-center space-y-4">
@@ -137,20 +137,20 @@ export function Scanner() {
                       </motion.div>
                     </div>
                     <p className="text-lg font-medium leading-relaxed text-left">{result.description}</p>
-                    <div className="bg-gray-50 p-5 neo-border rounded-xl flex gap-4 italic text-sm relative overflow-hidden text-left">
+                    <div className="bg-gray-50 p-5 neo-border rounded-2xl flex gap-4 italic text-sm relative overflow-hidden text-left">
                       <div className="absolute inset-0 bg-pattern-batik opacity-[0.03] pointer-events-none" />
-                      <div className="bg-coral/20 p-2 rounded-lg h-fit relative z-10 shrink-0">
+                      <div className="bg-coral/20 p-2 rounded-2xl h-fit relative z-10 shrink-0">
                         <Info className="w-5 h-5 text-coral" />
                       </div>
                       <p className="leading-relaxed relative z-10"><strong>Filosofi:</strong> {result.philosophy}</p>
                     </div>
                     <div className="pt-4 flex flex-col sm:flex-row gap-4">
-                      <button onClick={reset} className="neo-btn bg-black text-white px-8 flex-1 sm:flex-none">
+                      <button onClick={reset} className="neo-btn bg-black text-white px-8 flex-1 sm:flex-none rounded-2xl">
                         <RefreshCcw className="w-4 h-4" /> Scan Lagi
                       </button>
                       <button
                         onClick={() => setIsDetailOpen(true)}
-                        className="neo-btn bg-white text-black px-8 flex-1 sm:flex-none"
+                        className="neo-btn bg-white text-black px-8 flex-1 sm:flex-none rounded-2xl"
                       >
                         Detail Lengkap <ArrowUpRight className="w-4 h-4" />
                       </button>

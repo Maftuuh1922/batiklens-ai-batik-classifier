@@ -8,7 +8,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center text-center md:text-left">
           <div className="space-y-4">
-            <h2 className="text-3xl font-display font-bold italic">BatikLens.</h2>
+            <h2 className="text-3xl font-display font-bold italic text-coral">BatikLens.</h2>
             <p className="text-gray-400 font-medium max-w-xs mx-auto md:mx-0">
               Membawa tradisi ke masa depan dengan kecerdasan buatan. Melindungi warisan budaya, satu scan setiap kalinya.
             </p>
@@ -19,7 +19,7 @@ export function Footer() {
             <a href="#" className="hover:text-coral transition-colors">Kontak</a>
           </div>
           <div className="space-y-6 md:text-right">
-            <div className="inline-block bg-coral text-black neo-border px-6 py-3 rounded-xl font-bold hover:shadow-neo-sm transition-all cursor-pointer">
+            <div className="inline-block bg-coral text-white neo-border px-6 py-3 rounded-2xl font-bold hover:shadow-neo-sm transition-all cursor-pointer">
               DAFTAR NEWSLETTER
             </div>
             <p className="text-sm text-gray-500">
