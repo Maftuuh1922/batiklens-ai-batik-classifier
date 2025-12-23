@@ -71,7 +71,7 @@ export function Scanner() {
         </p>
       </div>
       <div className="min-h-[500px] md:min-h-[600px] flex flex-col relative z-10">
-        <NeoCard className="p-4 sm:p-6 md:p-10 flex-grow flex flex-col items-center justify-center relative overflow-hidden rounded-4xl">
+        <NeoCard className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col items-center justify-center relative overflow-hidden rounded-4xl">
           <AnimatePresence mode="wait">
             {state === 'idle' && (
               <motion.div
@@ -140,22 +140,22 @@ export function Scanner() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="w-full h-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center p-2"
+                className="w-full h-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-stretch justify-center p-2"
               >
-                <div className="w-full lg:w-1/2 neo-border rounded-3xl overflow-hidden shadow-neo-sm bg-gray-100 aspect-square max-w-[450px]">
+                <div className="w-full lg:w-1/2 neo-border rounded-3xl overflow-hidden shadow-neo-sm bg-gray-100 aspect-square max-w-[450px] shrink-0">
                   <img src={result.imageUrl} alt={result.name} className="w-full h-full object-cover" />
                 </div>
-                <div className="w-full lg:w-1/2 flex flex-col justify-center space-y-6 text-left">
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <h3 className="text-3xl md:text-5xl font-display font-bold text-coral tracking-tighter leading-none">{result.name}</h3>
-                    <div className="bg-lime neo-border px-4 py-1.5 rounded-4xl font-black text-xs md:text-sm shadow-neo-sm whitespace-nowrap">
+                <div className="w-full flex flex-col justify-center space-y-6 text-left p-2 lg:p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <h3 className="text-3xl md:text-5xl font-display font-bold text-coral tracking-tighter leading-none uppercase">{result.name}</h3>
+                    <div className="bg-lime neo-border px-4 py-1.5 rounded-4xl font-black text-xs md:text-sm shadow-neo-sm whitespace-nowrap self-start sm:self-center">
                       {result.confidence}% MATCH
                     </div>
                   </div>
                   <p className="text-base md:text-xl font-medium leading-relaxed text-muted-foreground">
                     {result.description}
                   </p>
-                  <div className="bg-gray-50 p-5 md:p-6 neo-border rounded-3xl flex gap-4 italic text-sm md:text-base relative overflow-hidden group shadow-neo-sm">
+                  <div className="bg-gray-50 p-6 md:p-8 neo-border rounded-3xl flex gap-4 italic text-sm md:text-base relative overflow-hidden group shadow-neo-sm">
                     <div className="absolute inset-0 bg-pattern-batik opacity-[0.02] pointer-events-none" />
                     <div className="bg-coral/10 p-2 rounded-xl h-fit relative z-10 shrink-0 border border-coral/20">
                       <Info className="w-5 h-5 md:w-6 md:h-6 text-coral" />

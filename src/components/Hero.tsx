@@ -27,15 +27,15 @@ export function Hero() {
             KECERDASAN BUDAYA
           </div>
           <div className="space-y-2">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold leading-[0.9] tracking-tighter uppercase hyphens-none flex flex-col lg:block lg:whitespace-nowrap">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-[900] leading-tight tracking-normal uppercase break-words whitespace-normal flex flex-col">
               <span>IDENTIFIKASI</span>
-              <span className="lg:ml-4">
+              <span>
                 <span className="text-coral underline decoration-black decoration-[6px] md:decoration-[8px] lg:decoration-[10px] underline-offset-[6px] md:underline-offset-[10px]">BATIK</span>
                 {" INSTAN."}
               </span>
             </h1>
           </div>
-          <p className="text-lg md:text-xl font-medium text-muted-foreground max-w-md leading-relaxed border-l-6 border-lime pl-6 md:pl-8">
+          <p className="text-lg md:text-xl font-medium text-muted-foreground max-w-lg line-clamp-3 leading-relaxed border-l-6 border-lime pl-6 md:pl-8">
             Ungkap asal daerah dan filosofi sakral di balik setiap helai kain Nusantara dengan presisi Vision AI termutakhir.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
