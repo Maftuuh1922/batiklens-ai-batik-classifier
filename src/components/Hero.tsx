@@ -1,17 +1,24 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap, Shield, Globe } from 'lucide-react';
 export function Hero() {
+  const { scrollY } = useScroll();
+  const yParallax = useTransform(scrollY, [0, 500], [0, -100]);
   return (
-    <section id="hero" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="hero" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Parallax Batik Background Layer */}
+      <motion.div 
+        style={{ y: yParallax }}
+        className="absolute inset-0 bg-pattern-parang opacity-[0.03] pointer-events-none -z-10"
+      />
       <div className="py-12 md:py-24 lg:py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="space-y-8 md:space-y-10"
+          className="relative z-10 space-y-8 md:space-y-10"
         >
           <div className="inline-flex items-center gap-2 bg-lime neo-border neo-shadow-sm px-4 py-1.5 rounded-full text-xs md:text-sm font-black uppercase tracking-widest">
             <span className="relative flex h-2 w-2">
@@ -62,6 +69,8 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative px-2 sm:px-4 mt-8 lg:mt-0"
         >
+          {/* Decorative Kawung Border Frame */}
+          <div className="absolute -inset-4 bg-pattern-batik opacity-10 neo-border -z-10 rounded-3xl" />
           <div className="neo-border neo-shadow-lg bg-coral rounded-3xl aspect-[4/5] relative overflow-hidden group">
             <img
               src="https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=80&w=1000"
@@ -69,7 +78,6 @@ export function Hero() {
               className="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            {/* Animated Rotating Badge - Fixed positioning and size */}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
@@ -79,13 +87,11 @@ export function Hero() {
                 ASLI INDONESIA • TEKNOLOGI LOKAL • WARISAN DUNIA • BATIK LENS •
               </p>
             </motion.div>
-            {/* Bottom Tag */}
             <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm neo-border p-4 rounded-xl translate-y-2 lg:translate-y-20 lg:group-hover:translate-y-0 transition-transform duration-500 z-10">
               <p className="font-display font-bold text-sm">MOTIF: PARANG RUSAK</p>
               <p className="text-xs font-mono text-muted-foreground">SCAN CONFIDENCE: 100%</p>
             </div>
           </div>
-          {/* Decorative Elements */}
           <div className="absolute -bottom-6 -left-6 w-16 h-16 sm:w-24 sm:h-24 bg-lime neo-border rounded-2xl -z-10 animate-bounce" />
           <div className="absolute top-1/2 -right-6 w-12 h-12 sm:w-16 sm:h-16 bg-white neo-border rounded-full -z-10" />
         </motion.div>

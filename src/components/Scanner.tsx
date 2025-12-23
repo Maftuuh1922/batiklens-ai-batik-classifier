@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, Search, RefreshCcw, Info } from 'lucide-react';
+import { Upload, Search, RefreshCcw, Info, Cloud } from 'lucide-react';
 import { NeoCard } from './ui/NeoCard';
 import { scannerResults } from '@/lib/mockData';
 type ScannerState = 'idle' | 'scanning' | 'result';
@@ -11,7 +11,6 @@ export function Scanner() {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       setState('scanning');
-      // Simulate scanning delay
       setTimeout(() => {
         const randomResult = scannerResults[Math.floor(Math.random() * scannerResults.length)];
         setResult(randomResult);
@@ -29,12 +28,27 @@ export function Scanner() {
     setResult(null);
   };
   return (
-    <section id="scanner" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
-      <div className="text-center mb-12 space-y-4">
+    <section id="scanner" className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 overflow-hidden">
+      {/* Mega Mendung Decorative Clouds */}
+      <motion.div 
+        animate={{ x: [-20, 20, -20] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-10 -left-10 opacity-10 text-coral pointer-events-none"
+      >
+        <Cloud size={120} fill="currentColor" />
+      </motion.div>
+      <motion.div 
+        animate={{ x: [20, -20, 20] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-20 -right-10 opacity-10 text-lime pointer-events-none"
+      >
+        <Cloud size={160} fill="currentColor" />
+      </motion.div>
+      <div className="text-center mb-12 space-y-4 relative z-10">
         <h2 className="text-4xl md:text-5xl font-display font-bold">UJI MOTIF ANDA</h2>
         <p className="text-lg font-medium text-muted-foreground">Unggah foto kain batik untuk dianalisis oleh AI kami.</p>
       </div>
-      <div className="min-h-[500px] flex flex-col">
+      <div className="min-h-[500px] flex flex-col relative z-10">
         <NeoCard className="p-8 md:p-12 flex-grow flex flex-col items-center justify-center relative overflow-hidden">
           <AnimatePresence mode="wait">
             {state === 'idle' && (
@@ -47,15 +61,17 @@ export function Scanner() {
               >
                 <div
                   {...getRootProps()}
-                  className={`neo-border border-dashed p-12 rounded-2xl flex flex-col items-center gap-6 cursor-pointer transition-colors h-full justify-center ${
+                  className={`relative neo-border border-dashed p-12 rounded-2xl flex flex-col items-center gap-6 cursor-pointer transition-colors h-full justify-center overflow-hidden ${
                     isDragActive ? 'bg-lime/20' : 'bg-gray-50'
                   }`}
                 >
+                  {/* Subtle Background Texture for Idle State */}
+                  <div className="absolute inset-0 bg-pattern-parang opacity-[0.05] pointer-events-none" />
                   <input {...getInputProps()} />
-                  <div className="bg-coral p-4 neo-border rounded-xl">
+                  <div className="bg-coral p-4 neo-border rounded-xl relative z-10">
                     <Upload className="w-10 h-10" />
                   </div>
-                  <div className="text-center">
+                  <div className="text-center relative z-10">
                     <p className="text-xl font-bold">Tarik & Lepas Gambar</p>
                     <p className="text-muted-foreground">Atau klik untuk memilih file dari komputer</p>
                   </div>
@@ -87,7 +103,7 @@ export function Scanner() {
                 </div>
                 <div className="text-center space-y-2">
                   <h3 className="text-2xl font-display font-bold">MENGANALISIS...</h3>
-                  <p className="font-mono text-sm tracking-widest text-muted-foreground">MATCHING PATTERNS: SCANNING PIXELS</p>
+                  <p className="font-mono text-sm tracking-widest text-muted-foreground uppercase">Pixel matching algorithm active</p>
                 </div>
               </motion.div>
             )}
@@ -106,7 +122,7 @@ export function Scanner() {
                   <div className="flex-1 flex flex-col justify-center space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <h3 className="text-3xl md:text-4xl font-display font-bold text-coral">{result.name}</h3>
-                      <motion.div 
+                      <motion.div
                         animate={{ scale: [1, 1.05, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
                         className="bg-lime neo-border px-4 py-1.5 rounded-full font-black text-sm shadow-neo-sm"
@@ -115,11 +131,12 @@ export function Scanner() {
                       </motion.div>
                     </div>
                     <p className="text-lg font-medium leading-relaxed">{result.description}</p>
-                    <div className="bg-gray-50 p-5 neo-border rounded-xl flex gap-4 italic text-sm">
-                      <div className="bg-coral/20 p-2 rounded-lg h-fit">
+                    <div className="bg-gray-50 p-5 neo-border rounded-xl flex gap-4 italic text-sm relative overflow-hidden">
+                      <div className="absolute inset-0 bg-pattern-batik opacity-[0.03] pointer-events-none" />
+                      <div className="bg-coral/20 p-2 rounded-lg h-fit relative z-10">
                         <Info className="w-5 h-5 text-coral" />
                       </div>
-                      <p className="leading-relaxed"><strong>Filosofi:</strong> {result.philosophy}</p>
+                      <p className="leading-relaxed relative z-10"><strong>Filosofi:</strong> {result.philosophy}</p>
                     </div>
                     <div className="pt-4">
                       <button onClick={reset} className="neo-btn bg-black text-white px-10 w-full md:w-auto">

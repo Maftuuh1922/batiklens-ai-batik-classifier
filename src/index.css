@@ -24,4 +24,19 @@
   .glass-nav {
     @apply sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b-3 border-black;
   }
+  /* Phase 3: Batik Pattern Utilities */
+  .bg-pattern-batik {
+    background-image: url('https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=40&w=400');
+    background-repeat: repeat;
+    background-size: 300px;
+  }
+  .bg-pattern-parang {
+    background-image: url('https://images.unsplash.com/photo-1590595978583-39b73b490244?auto=format&fit=crop&q=40&w=400');
+    background-repeat: repeat;
+    background-size: 250px;
+  }
+  .neo-mask {
+    mask-image: linear-gradient(to bottom, black, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+  }
 }
