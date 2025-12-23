@@ -51,74 +51,77 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="w-full flex flex-col lg:flex-row h-full overflow-hidden"
     >
-      <div className="w-full lg:w-1/2 h-[45vh] sm:h-96 lg:h-full relative overflow-hidden lg:border-r-3 border-black shrink-0 lg:rounded-l-4xl">
+      <div className="w-full lg:w-1/2 h-[40vh] sm:h-80 lg:h-full relative overflow-hidden lg:border-r-3 border-black shrink-0 lg:rounded-l-4xl">
         <img
           src={motif.imageUrl}
           alt={motif.name}
           className="w-full h-full object-cover transition-transform duration-[2000ms] hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:hidden" />
-        <div className="absolute bottom-8 left-8 lg:top-8 lg:bottom-auto flex flex-col gap-4 z-20">
-          <Badge className="bg-lime text-black neo-border px-6 py-2 font-black shadow-neo-sm rounded-3xl text-sm md:text-base">
-            <MapPin className="w-5 h-5 mr-2" /> {motif.origin}
+        <div className="absolute bottom-6 left-6 lg:top-8 lg:bottom-auto flex flex-col gap-3 z-20">
+          <Badge className="bg-lime text-black neo-border px-4 py-1.5 font-black shadow-neo-sm rounded-3xl text-xs md:text-sm">
+            <MapPin className="w-4 h-4 mr-2" /> {motif.origin}
           </Badge>
           {motif.confidence && (
-            <Badge className="bg-coral text-white neo-border px-6 py-2 font-black shadow-neo-sm rounded-3xl text-sm md:text-base">
+            <Badge className="bg-coral text-white neo-border px-4 py-1.5 font-black shadow-neo-sm rounded-3xl text-xs md:text-sm">
               {motif.confidence}% MATCH
             </Badge>
           )}
         </div>
       </div>
-      <div className="flex-1 p-8 sm:p-12 lg:p-16 overflow-y-auto relative z-10 scrollbar-thin scrollbar-thumb-black/20 text-left bg-white bg-pattern-parang/5">
-        <div className="space-y-12 md:space-y-16">
-          <div className="space-y-8">
-            <h2 className="text-4xl sm:text-5xl lg:text-8xl font-display font-bold uppercase tracking-tighter leading-[0.9] text-coral pr-12 lg:pr-20">
-              {motif.name}
-            </h2>
-            <div className="h-3 w-32 bg-lime neo-border rounded-full" />
-            <p className="text-xl lg:text-2xl font-medium text-black/80 leading-relaxed max-w-2xl">
-              {motif.description}
-            </p>
-          </div>
-          <div className="space-y-12 md:space-y-16">
+      <div className="flex-1 h-full flex flex-col bg-white overflow-hidden relative">
+        <div className="absolute inset-0 bg-pattern-parang opacity-[0.03] pointer-events-none" />
+        <div className="flex-grow overflow-y-auto p-6 md:p-8 scrollbar-thin scrollbar-thumb-black/20">
+          <div className="space-y-10 md:space-y-12">
             <div className="space-y-6">
-              <div className="flex items-center gap-5 text-coral">
-                <ScrollText className="w-10 h-10 stroke-[3px]" />
-                <h3 className="font-display font-bold text-2xl lg:text-3xl uppercase tracking-tight underline decoration-lime decoration-6 underline-offset-8">
-                  Filosofi & Makna
-                </h3>
-              </div>
-              <div className="bg-lime/10 neo-border p-10 lg:p-14 rounded-3xl relative group overflow-hidden shadow-neo-sm hover:shadow-neo transition-all">
-                <div className="absolute top-0 right-0 p-4 opacity-10 rotate-12 group-hover:rotate-45 transition-transform duration-500">
-                  <ScrollText size={120} />
-                </div>
-                <p className="font-medium text-2xl lg:text-3xl leading-relaxed italic text-black/90 relative z-10">
-                  "{motif.philosophy}"
-                </p>
-              </div>
-            </div>
-            <div className="space-y-6">
-              <div className="flex items-center gap-5 text-black">
-                <History className="w-10 h-10 stroke-[3px]" />
-                <h3 className="font-display font-bold text-2xl lg:text-3xl uppercase tracking-tight underline decoration-coral decoration-6 underline-offset-8">
-                  Konteks Sejarah
-                </h3>
-              </div>
-              <div className="bg-gray-50 neo-border p-10 lg:p-14 rounded-3xl shadow-neo-sm hover:shadow-neo transition-all">
-                <p className="text-xl lg:text-2xl text-black/70 leading-relaxed font-medium">
-                  {motif.history}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="pt-16 border-t-3 border-dashed border-black/10">
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-12 h-12 bg-black neo-border rounded-2xl flex items-center justify-center text-[10px] font-black text-coral rotate-45 shadow-neo-sm">
-                <div className="-rotate-45">BL</div>
-              </div>
-              <p className="text-xs font-black uppercase tracking-[0.4em] text-black/30 text-center">
-                BatikLens Cultural Archive • Preserving Heritage through AI
+              <h2 className="text-3xl sm:text-4xl lg:text-7xl font-display font-bold uppercase tracking-tighter leading-[0.9] text-coral pr-12 lg:pr-16">
+                {motif.name}
+              </h2>
+              <div className="h-2 w-24 bg-lime neo-border rounded-full" />
+              <p className="text-lg lg:text-xl font-medium text-black/80 leading-relaxed max-w-xl">
+                {motif.description}
               </p>
+            </div>
+            <div className="space-y-10">
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 text-coral">
+                  <ScrollText className="w-8 h-8 stroke-[3px]" />
+                  <h3 className="font-display font-bold text-xl lg:text-2xl uppercase tracking-tight underline decoration-lime decoration-4 underline-offset-4">
+                    Filosofi & Makna
+                  </h3>
+                </div>
+                <div className="bg-lime/10 neo-border p-6 lg:p-8 rounded-3xl relative group overflow-hidden shadow-neo-sm hover:shadow-neo transition-all">
+                  <div className="absolute top-0 right-0 p-3 opacity-5 rotate-12 group-hover:rotate-45 transition-transform duration-500">
+                    <ScrollText size={80} />
+                  </div>
+                  <p className="font-medium text-xl lg:text-2xl leading-relaxed italic text-black/90 relative z-10">
+                    "{motif.philosophy}"
+                  </p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 text-black">
+                  <History className="w-8 h-8 stroke-[3px]" />
+                  <h3 className="font-display font-bold text-xl lg:text-2xl uppercase tracking-tight underline decoration-coral decoration-4 underline-offset-4">
+                    Konteks Sejarah
+                  </h3>
+                </div>
+                <div className="bg-gray-50 neo-border p-6 lg:p-8 rounded-3xl shadow-neo-sm hover:shadow-neo transition-all">
+                  <p className="text-lg lg:text-xl text-black/70 leading-relaxed font-medium">
+                    {motif.history}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="pt-10 border-t-3 border-dashed border-black/10">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-10 h-10 bg-black neo-border rounded-2xl flex items-center justify-center text-[9px] font-black text-coral rotate-45 shadow-neo-sm">
+                  <div className="-rotate-45">BL</div>
+                </div>
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-black/30 text-center">
+                  BatikLens Cultural Archive • Preserving Heritage through AI
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -151,13 +154,13 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
               <SheetTitle>{motif?.name || "Detail Batik"}</SheetTitle>
               <SheetDescription>Informasi detail motif batik Nusantara.</SheetDescription>
             </SheetHeader>
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-2 bg-black/20 rounded-full z-[71]" />
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-1.5 bg-black/20 rounded-full z-[71]" />
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 bg-white neo-border p-3 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90"
+              className="absolute top-5 right-5 bg-white neo-border p-2.5 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90"
               aria-label="Close sheet"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </button>
             <div className="flex-grow overflow-hidden">
               <AnimatePresence mode="wait">
@@ -174,7 +177,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
       <DialogPortal>
         <DialogOverlay className="neo-modal-overlay" />
         <DialogContent
-          className="z-[1001] fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[95vw] md:max-w-6xl lg:max-w-7xl w-full p-0 neo-border bg-white overflow-hidden outline-none rounded-4xl flex flex-col lg:flex-row max-h-[92vh] transition-all duration-300 shadow-neo-lg border-3 border-black"
+          className="z-[1001] fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[95vw] lg:max-w-6xl w-full p-0 neo-border bg-white overflow-hidden outline-none rounded-4xl flex flex-col lg:flex-row h-[85vh] transition-all duration-300 shadow-neo-lg border-3 border-black"
         >
           <DialogHeader className="sr-only">
             <DialogTitle>{motif?.name || "Detail Batik"}</DialogTitle>
@@ -182,10 +185,10 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
           </DialogHeader>
           <button
             onClick={onClose}
-            className="absolute top-8 right-8 bg-white neo-border p-4 rounded-3xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90 flex items-center justify-center group"
+            className="absolute top-6 right-6 bg-white neo-border p-3 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90 flex items-center justify-center group"
             aria-label="Close dialog"
           >
-            <X className="w-8 h-8 group-hover:rotate-90 transition-transform duration-300" />
+            <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
           </button>
           <AnimatePresence mode="wait">
             <ModalContent key={motif?.name || 'empty'} motif={motif} isMobile={isMobile} />
