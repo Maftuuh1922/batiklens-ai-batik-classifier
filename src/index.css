@@ -38,16 +38,24 @@
     mask-image: linear-gradient(to bottom, black, transparent);
     -webkit-mask-image: linear-gradient(to bottom, black, transparent);
   }
-  /* Modal Utilities */
+}
+@layer utilities {
   .neo-modal-overlay {
-    @apply bg-black/40 backdrop-blur-sm transition-all duration-300;
+    @apply bg-black/60 backdrop-blur-sm transition-all duration-300;
+  }
+  .shadow-neo-lg {
+    box-shadow: 10px 10px 0px 0px #000000;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-black/20 rounded-full;
   }
 }
-/* Custom shadow for larger containers */
-.shadow-neo-lg {
-  box-shadow: 10px 10px 0px 0px #000000;
-}
-/* Responsive adjustments for Dialog content */
 [data-radix-portal] {
   @apply relative z-[100];
 }

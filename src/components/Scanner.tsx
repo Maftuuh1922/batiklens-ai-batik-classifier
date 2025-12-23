@@ -102,7 +102,13 @@ export function Scanner() {
                   />
                 </div>
                 <div className="text-center space-y-2">
-                  <h3 className="text-2xl font-display font-bold">MENGANALISIS...</h3>
+                  <motion.h3 
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="text-2xl font-display font-bold"
+                  >
+                    MENGANALISIS...
+                  </motion.h3>
                   <p className="font-mono text-sm tracking-widest text-muted-foreground uppercase">Pixel matching algorithm active</p>
                 </div>
               </motion.div>
@@ -130,10 +136,10 @@ export function Scanner() {
                         {result.confidence}% MATCH
                       </motion.div>
                     </div>
-                    <p className="text-lg font-medium leading-relaxed">{result.description}</p>
-                    <div className="bg-gray-50 p-5 neo-border rounded-xl flex gap-4 italic text-sm relative overflow-hidden">
+                    <p className="text-lg font-medium leading-relaxed text-left">{result.description}</p>
+                    <div className="bg-gray-50 p-5 neo-border rounded-xl flex gap-4 italic text-sm relative overflow-hidden text-left">
                       <div className="absolute inset-0 bg-pattern-batik opacity-[0.03] pointer-events-none" />
-                      <div className="bg-coral/20 p-2 rounded-lg h-fit relative z-10">
+                      <div className="bg-coral/20 p-2 rounded-lg h-fit relative z-10 shrink-0">
                         <Info className="w-5 h-5 text-coral" />
                       </div>
                       <p className="leading-relaxed relative z-10"><strong>Filosofi:</strong> {result.philosophy}</p>
@@ -142,7 +148,7 @@ export function Scanner() {
                       <button onClick={reset} className="neo-btn bg-black text-white px-8 flex-1 sm:flex-none">
                         <RefreshCcw className="w-4 h-4" /> Scan Lagi
                       </button>
-                      <button 
+                      <button
                         onClick={() => setIsDetailOpen(true)}
                         className="neo-btn bg-white text-black px-8 flex-1 sm:flex-none"
                       >
@@ -156,10 +162,10 @@ export function Scanner() {
           </AnimatePresence>
         </NeoCard>
       </div>
-      <BatikDetailModal 
-        isOpen={isDetailOpen} 
-        onClose={() => setIsDetailOpen(false)} 
-        motif={result} 
+      <BatikDetailModal
+        isOpen={isDetailOpen}
+        onClose={() => setIsDetailOpen(false)}
+        motif={result}
       />
     </section>
   );
