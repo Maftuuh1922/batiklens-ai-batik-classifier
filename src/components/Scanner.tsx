@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, Search, RefreshCcw, Info, Cloud, ArrowUpRight } from 'lucide-react';
@@ -10,10 +10,24 @@ export function Scanner() {
   const [state, setState] = useState<ScannerState>('idle');
   const [result, setResult] = useState<typeof scannerResults[0] | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+  // Ref to track the scanning timer for cleanup
+  const scanTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (scanTimerRef.current) {
+        clearTimeout(scanTimerRef.current);
+      }
+    };
+  }, []);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
+      // Clear any existing active timer before starting a new one
+      if (scanTimerRef.current) {
+        clearTimeout(scanTimerRef.current);
+      }
       setState('scanning');
-      const timer = setTimeout(() => {
+      scanTimerRef.current = setTimeout(() => {
         try {
           const randomResult = scannerResults[Math.floor(Math.random() * scannerResults.length)];
           setResult(randomResult);
@@ -21,9 +35,10 @@ export function Scanner() {
         } catch (err) {
           console.error("Scanning simulation failed:", err);
           setState('idle');
+        } finally {
+          scanTimerRef.current = null;
         }
       }, 3000);
-      return () => clearTimeout(timer);
     }
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -32,6 +47,10 @@ export function Scanner() {
     multiple: false
   });
   const reset = () => {
+    if (scanTimerRef.current) {
+      clearTimeout(scanTimerRef.current);
+      scanTimerRef.current = null;
+    }
     setState('idle');
     setResult(null);
   };

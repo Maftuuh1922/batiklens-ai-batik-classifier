@@ -28,17 +28,17 @@ export function Hero() {
             INDONESIA HERITAGE AI
           </div>
           <div className="space-y-4">
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-bold leading-[0.85] sm:leading-[0.85] tracking-tighter uppercase break-words">
+            <h1 className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-bold leading-[0.9] sm:leading-[0.85] tracking-tighter uppercase break-words">
               IDENTIFIKASI <br />
               <span className="text-coral underline decoration-black decoration-[8px] sm:decoration-[12px] underline-offset-[6px] sm:underline-offset-[10px]">BATIK</span> <br className="hidden sm:block" />
               INSTAN.
             </h1>
           </div>
-          <p className="text-lg md:text-2xl font-medium text-muted-foreground max-w-xl leading-relaxed border-l-6 border-lime pl-6 md:pl-10">
+          <p className="text-lg md:text-2xl font-medium text-muted-foreground max-w-xl leading-relaxed border-l-4 sm:border-l-6 border-lime pl-4 sm:pl-10">
             Ungkap identitas, asal daerah, dan filosofi sakral di balik setiap helai kain Batik Nusantara dengan presisi Vision AI.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 pt-4">
-            <a href="#scanner" className="neo-btn bg-coral text-white text-lg md:text-2xl px-10 py-6 md:py-10 group rounded-2xl shadow-neo">
+            <a href="#scanner" className="neo-btn bg-coral text-white text-lg md:text-2xl px-10 py-4 md:py-10 group rounded-2xl shadow-neo">
               Mulai Scan
               <motion.div
                 animate={{ x: [0, 8, 0] }}
@@ -47,9 +47,9 @@ export function Hero() {
                 <ArrowRight className="w-6 h-6 md:w-8 md:h-8" />
               </motion.div>
             </a>
-            <Button variant="outline" className="neo-btn bg-white text-black text-lg md:text-2xl px-10 py-6 md:py-10 rounded-2xl shadow-neo group" asChild>
+            <Button variant="outline" className="neo-btn bg-white text-black text-lg md:text-2xl px-10 py-4 md:py-10 rounded-2xl shadow-neo group" asChild>
               <a href="#gallery">
-                Katalog Motif 
+                Katalog Motif
                 <Sparkles className="w-5 h-5 ml-2 group-hover:text-coral transition-colors" />
               </a>
             </Button>
@@ -63,7 +63,7 @@ export function Hero() {
               <div key={i} className="flex items-center gap-3 font-black italic text-xs md:text-sm tracking-tight uppercase group">
                 <div className="bg-lime p-1.5 neo-border rounded-lg group-hover:rotate-12 transition-transform">
                   <item.icon className="w-4 h-4 md:w-5 md:h-5 text-black stroke-[3px]" />
-                </div> 
+                </div>
                 {item.text}
               </div>
             ))}
@@ -93,7 +93,7 @@ export function Hero() {
               className="absolute -top-12 -right-12 sm:-top-20 sm:-right-20 w-32 h-32 sm:w-56 sm:h-56 bg-lime neo-border rounded-full flex items-center justify-center p-6 text-center shadow-neo-lg z-20 pointer-events-none"
             >
               <p className="font-display font-black text-[8px] sm:text-[12px] leading-tight uppercase tracking-wider">
-                • ASLI INDONESIA • TEKNOLOGI LOKAL • WARISAN DUNIA • BATIK LENS AI • 
+                • ASLI INDONESIA • TEKNOLOGI LOKAL • WARISAN DUNIA • BATIK LENS AI •
               </p>
             </motion.div>
             {/* Bottom Card Overlay */}
@@ -106,7 +106,7 @@ export function Hero() {
                 <div className="bg-lime neo-border px-3 py-1 rounded-full text-[10px] font-black shadow-neo-sm">100%</div>
               </div>
               <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden neo-border shadow-inner">
-                <motion.div 
+                <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: "100%" }}
                   transition={{ duration: 1.5, delay: 0.5 }}

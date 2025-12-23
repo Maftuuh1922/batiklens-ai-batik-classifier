@@ -7,7 +7,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { X, MapPin, History, ScrollText } from "lucide-react";
 interface BatikDetailModalProps {
   isOpen: boolean;
@@ -23,11 +23,23 @@ interface BatikDetailModalProps {
   } | null;
 }
 export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalProps) {
+  // Defensive check: while the parent controls this, ensure we don't render invalid UI
+  if (!motif && isOpen) {
+    return (
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="max-w-[95vw] sm:max-w-xl p-8 neo-border neo-shadow bg-white rounded-2xl flex items-center justify-center min-h-[200px]">
+          <div className="text-center font-display font-bold animate-pulse text-muted-foreground uppercase tracking-widest">
+            Memuat Data...
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
   if (!motif) return null;
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent 
-        className="max-w-[95vw] sm:max-w-4xl p-0 neo-border neo-shadow bg-white overflow-hidden outline-none rounded-2xl flex flex-col max-h-[92vh] transition-all duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+      <DialogContent
+        className="max-w-[95vw] sm:max-w-4xl p-0 neo-border neo-shadow bg-white overflow-x-hidden outline-none rounded-2xl flex flex-col max-h-[90vh] transition-all duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
       >
         <DialogHeader className="sr-only">
           <DialogTitle>{motif.name}</DialogTitle>
@@ -35,10 +47,10 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
             Detail informasi mengenai motif batik {motif.name}.
           </DialogDescription>
         </DialogHeader>
-        {/* Unified Close Button - Fixed position for all viewports */}
+        {/* Unified Close Button - Perfectly centered icon, fixed position */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 bg-white neo-border p-2 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90 group"
+          className="absolute top-4 right-4 bg-white neo-border p-2 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90 group flex items-center justify-center"
           aria-label="Close modal"
         >
           <X className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -77,7 +89,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
                   {motif.name}
                 </h2>
                 <div className="h-1.5 w-16 bg-lime neo-border rounded-full" />
-                <p className="text-sm sm:text-base lg:text-lg font-medium text-muted-foreground leading-relaxed">
+                <p className="text-sm sm:text-base lg:text-lg font-medium text-black/70 leading-relaxed">
                   {motif.description}
                 </p>
               </div>
@@ -100,7 +112,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
                     <h3 className="font-display font-bold text-lg sm:text-xl uppercase italic tracking-tight">Konteks Sejarah</h3>
                   </div>
                   <div className="border-l-4 sm:border-l-6 border-coral pl-4 sm:pl-8 py-1">
-                    <p className="text-xs sm:text-base text-muted-foreground leading-relaxed font-medium">
+                    <p className="text-xs sm:text-base text-black/70 leading-relaxed font-medium">
                       {motif.history}
                     </p>
                   </div>
