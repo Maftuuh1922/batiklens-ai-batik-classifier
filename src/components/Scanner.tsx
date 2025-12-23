@@ -17,6 +17,7 @@ export function Scanner() {
     };
   }, []);
   const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (state !== 'idle') return;
     if (acceptedFiles.length > 0) {
       if (scanTimerRef.current) clearTimeout(scanTimerRef.current);
       setState('scanning');
@@ -33,11 +34,12 @@ export function Scanner() {
         }
       }, 3000);
     }
-  }, []);
+  }, [state]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'image/*': [] },
-    multiple: false
+    multiple: false,
+    disabled: state !== 'idle'
   });
   const reset = () => {
     if (scanTimerRef.current) {
@@ -48,7 +50,7 @@ export function Scanner() {
     setResult(null);
   };
   return (
-    <section id="scanner" className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-28 overflow-visible">
+    <section id="scanner" className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-28 overflow-visible scroll-mt-24">
       <motion.div
         animate={{ x: [-20, 20, -20] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}

@@ -16,13 +16,14 @@
   h1, h2, h3, h4 {
     @apply font-display tracking-tight;
   }
-  /* Standardizing layout containers to 40px */
-  .rounded-4xl {
-    border-radius: 40px !important;
+  /* Scroll offset for sticky nav */
+  section {
+    scroll-margin-top: 7rem;
   }
-  /* Standardizing cards and major components to 32px */
-  .rounded-3xl {
-    border-radius: 32px !important;
+  @media (min-width: 768px) {
+    section {
+      scroll-margin-top: 8rem;
+    }
   }
 }
 @layer components {
@@ -53,7 +54,7 @@
 }
 @layer utilities {
   .neo-modal-overlay {
-    @apply fixed inset-0 z-[1000] bg-black/60 backdrop-blur-lg transition-all duration-300;
+    @apply fixed inset-0 z-[1000] bg-black/60 backdrop-blur-sm transition-opacity duration-300;
   }
   .shadow-neo-lg {
     box-shadow: 10px 10px 0px 0px #000000;
