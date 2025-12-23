@@ -9,60 +9,44 @@
     @apply selection:bg-lime selection:text-black;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    overflow-x: hidden;
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
     cursor: default;
   }
   h1, h2, h3, h4 {
     @apply font-display tracking-tight;
-    overflow-wrap: break-word;
-  }
-  section {
-    scroll-margin-top: 7rem;
-  }
-  @media (min-width: 768px) {
-    section {
-      scroll-margin-top: 8rem;
-    }
   }
 }
 @layer components {
   .neo-border {
     @apply border-3 border-black;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .neo-shadow {
     @apply shadow-neo-sm;
-    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .neo-btn {
-    @apply neo-border neo-shadow px-4 py-2 md:px-6 md:py-3 rounded-3xl font-bold transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-neo-lg flex items-center justify-center gap-2 text-sm md:text-base;
+    @apply neo-border neo-shadow px-5 py-3 rounded-2xl font-bold transition-all 
+           active:translate-x-[2px] active:translate-y-[2px] active:shadow-none 
+           hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-neo-lg 
+           flex items-center justify-center gap-2 text-sm md:text-base select-none;
   }
   .glass-nav {
-    @apply sticky top-0 z-[60] bg-white/70 backdrop-blur-md border-b-3 border-black;
+    @apply sticky top-0 z-[60] border-b-3 border-black;
   }
   .bg-pattern-batik {
-    background-image: url('https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=40&w=600');
-    background-repeat: repeat;
-    background-size: 300px;
-    opacity: 0.03;
-  }
-  .bg-pattern-parang {
-    background-image: url('https://images.unsplash.com/photo-1590595978583-39b73b490244?auto=format&fit=crop&q=40&w=400');
+    background-image: url('https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=10&w=200');
     background-repeat: repeat;
     background-size: 250px;
-    opacity: 0.03;
+    opacity: 0.04;
+  }
+  .bg-pattern-parang {
+    background-image: url('https://images.unsplash.com/photo-1590595978583-39b73b490244?auto=format&fit=crop&q=10&w=200');
+    background-repeat: repeat;
+    background-size: 200px;
+    opacity: 0.04;
   }
 }
 @layer utilities {
-  .hyphens-none {
-    hyphens: none;
-    -webkit-hyphens: none;
-    -ms-hyphens: none;
-  }
-  .neo-modal-overlay {
-    @apply fixed inset-0 z-[1000] bg-black/70 backdrop-blur-md transition-opacity duration-500;
-  }
   .shadow-neo-lg {
     box-shadow: 10px 10px 0px 0px #000000;
   }
@@ -73,29 +57,24 @@
     @apply bg-transparent;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply bg-black/30 rounded-full hover:bg-black/50 transition-colors;
+    @apply bg-black/20 rounded-full hover:bg-black/40 transition-colors;
   }
-  .batik-morph-blend {
-    mix-blend-mode: multiply;
+  /* Scroll Margin Adjustments for Sticky Nav */
+  #home { scroll-margin-top: 100px; }
+  #scanner { scroll-margin-top: 100px; }
+  #gallery { scroll-margin-top: 100px; }
+  @media (min-width: 768px) {
+    #home, #scanner, #gallery { scroll-margin-top: 120px; }
   }
-  @keyframes path-vibrate {
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(1px, -1px); }
-    50% { transform: translate(-1px, 1px); }
-    75% { transform: translate(1px, 1px); }
-    100% { transform: translate(0, 0); }
-  }
-  .animate-path-vibrate {
-    animation: path-vibrate 0.1s infinite linear;
-  }
-  body[style*="overflow: hidden"] {
-    padding-right: 0px !important;
-  }
+}
+/* Custom Modal Overlay */
+.neo-modal-overlay {
+  @apply fixed inset-0 z-[1000] bg-black/60 backdrop-blur-[4px] transition-all;
+}
+/* Safe scroll locking for mobile */
+body[style*="overflow: hidden"] {
+  padding-right: 0px !important;
 }
 [data-radix-portal] {
   @apply relative z-[1001];
-}
-.motion-safe-layout {
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
 }
