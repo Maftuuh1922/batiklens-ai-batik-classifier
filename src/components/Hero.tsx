@@ -130,7 +130,7 @@ export function Hero() {
         >
           <div className="absolute -inset-4 bg-pattern-batik neo-border -z-10 rounded-4xl rotate-2 opacity-10" />
           <div className="absolute -inset-4 bg-lime/10 neo-border -z-20 rounded-4xl -rotate-1" />
-          <div className="neo-border shadow-neo-sm bg-white rounded-4xl aspect-[4/3] relative overflow-hidden group">
+          <div className="neo-border shadow-neo-sm bg-white rounded-4xl aspect-video relative overflow-hidden group">
             <img
               src="https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=90&w=1000"
               alt="Indonesian Batik Preview"

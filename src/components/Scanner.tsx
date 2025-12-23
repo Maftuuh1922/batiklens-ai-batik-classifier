@@ -81,7 +81,7 @@ export function Scanner() {
             <button
               onClick={() => switchMode('idle')}
               className={cn(
-                "neo-btn px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2 transition-all",
+                "neo-btn px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm transition-all",
                 state === 'idle' ? "bg-lime text-black" : "bg-white text-black hover:bg-lime/50"
               )}
             >
@@ -90,7 +90,7 @@ export function Scanner() {
             <button
               onClick={() => switchMode('webcam')}
               className={cn(
-                "neo-btn px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2 transition-all",
+                "neo-btn px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm transition-all",
                 state === 'webcam' ? "bg-lime text-black" : "bg-white text-black hover:bg-lime/50"
               )}
             >
@@ -112,7 +112,7 @@ export function Scanner() {
                 <div
                   {...getRootProps()}
                   className={cn(
-                    "relative neo-border border-dashed border-black/20 p-8 md:p-16 rounded-3xl flex flex-col items-center gap-6 md:gap-10 cursor-pointer transition-all h-full justify-center flex-grow group",
+                    "relative neo-border border-dashed border-black/20 p-6 md:p-16 rounded-3xl flex flex-col items-center gap-6 md:gap-10 cursor-pointer transition-all h-full justify-center flex-grow group",
                     isDragActive ? 'bg-lime/10 border-lime' : 'bg-gray-50/50 hover:bg-gray-100'
                   )}
                 >

@@ -60,7 +60,7 @@ const ModalContent = ({ motif, isMobile, onClose }: ModalContentProps) => {
           className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent lg:hidden" />
-        <div className="absolute bottom-6 left-6 flex flex-col gap-2 z-20">
+        <div className="absolute bottom-6 left-6 flex flex-col gap-2 z-20 items-start">
           <Badge className="bg-lime text-black neo-border px-3 py-1 font-black shadow-neo-sm rounded-2xl text-[10px] md:text-xs">
             <MapPin className="w-3.5 h-3.5 mr-1.5" /> {motif.origin}
           </Badge>
@@ -71,9 +71,10 @@ const ModalContent = ({ motif, isMobile, onClose }: ModalContentProps) => {
           )}
         </div>
         {isMobile && (
-          <button 
+          <button
             onClick={onClose}
-            className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white z-30"
+            className="absolute top-4 right-4 bg-white/30 backdrop-blur-md p-2 rounded-full text-black z-30 neo-border border-black/10"
+            aria-label="Tutup Panel"
           >
             <ChevronDown size={24} />
           </button>
@@ -150,12 +151,12 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
       <Sheet open={isOpen} onOpenChange={onClose}>
         <SheetPortal>
           <SheetOverlay className="neo-modal-overlay" />
-          <SheetContent side="bottom" className="z-[1001] h-[94vh] w-full p-0 neo-border border-b-0 rounded-t-[32px] bg-white overflow-hidden outline-none flex flex-col shadow-none">
+          <SheetContent side="bottom" className="z-[1001] h-[94vh] w-full p-0 border-3 border-black border-b-0 rounded-t-[32px] bg-white overflow-hidden outline-none flex flex-col shadow-none">
             <SheetHeader className="sr-only">
               <SheetTitle>{motif?.name}</SheetTitle>
               <SheetDescription>Detail Budaya Batik</SheetDescription>
             </SheetHeader>
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-10 h-1 bg-black/10 rounded-full z-50" />
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-black/20 rounded-full z-50 hover:bg-black/40 transition-colors cursor-pointer" />
             <div className="flex-grow overflow-hidden">
               <AnimatePresence mode="wait">
                 <ModalContent key={motif?.name || 'empty'} motif={motif} isMobile={isMobile} onClose={onClose} />
@@ -177,7 +178,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
           </DialogHeader>
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 bg-white neo-border p-2.5 rounded-xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-50 group"
+            className="absolute top-6 right-6 bg-white neo-border p-2.5 rounded-xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-50 group active:scale-95"
           >
             <X className="w-5 h-5 group-hover:rotate-90 transition-transform" />
           </button>
