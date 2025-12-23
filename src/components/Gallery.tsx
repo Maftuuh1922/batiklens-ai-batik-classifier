@@ -34,7 +34,10 @@ export function Gallery() {
               className="h-full"
             >
               <NeoCard animate className="h-full bg-white rounded-2xl flex flex-col group cursor-default">
-                <div className="aspect-video relative overflow-hidden neo-border-b-3 bg-gray-100">
+                <div 
+                  className="aspect-video relative overflow-hidden neo-border-b-3 bg-gray-100 cursor-pointer"
+                  onClick={() => handleOpenDetail(item)}
+                >
                   <img
                     src={item.imageUrl}
                     alt={item.name}
@@ -45,7 +48,10 @@ export function Gallery() {
                   </div>
                 </div>
                 <div className="p-6 md:p-8 space-y-4 flex-grow flex flex-col text-left">
-                  <h3 className="text-2xl md:text-3xl font-display font-bold text-coral leading-none group-hover:underline underline-offset-4 decoration-black">
+                  <h3 
+                    className="text-2xl md:text-3xl font-display font-bold text-coral leading-none group-hover:text-black cursor-pointer transition-colors"
+                    onClick={() => handleOpenDetail(item)}
+                  >
                     {item.name}
                   </h3>
                   <p className="text-muted-foreground line-clamp-3 text-sm md:text-base font-medium flex-grow leading-relaxed">
@@ -54,16 +60,18 @@ export function Gallery() {
                   <div className="pt-6 flex justify-between items-center border-t-2 border-dashed border-gray-200">
                     <button
                       onClick={() => handleOpenDetail(item)}
-                      className="text-black font-black text-xs md:text-sm uppercase tracking-widest hover:text-coral transition-colors flex items-center gap-2"
+                      className="text-black font-black text-xs md:text-sm uppercase tracking-widest hover:text-coral transition-colors flex items-center gap-2 group/btn"
                     >
-                      LIHAT DETAIL <ArrowRight className="w-4 h-4" />
+                      LIHAT DETAIL 
+                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                     </button>
-                    <div
+                    <button
                       onClick={() => handleOpenDetail(item)}
-                      className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-black text-white flex items-center justify-center neo-border cursor-pointer hover:bg-lime hover:text-black transition-all active:scale-95 shadow-neo-sm"
+                      className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-black text-white flex items-center justify-center neo-border cursor-pointer hover:bg-lime hover:text-black transition-all active:scale-90 shadow-neo-sm"
+                      aria-label={`Lihat detail ${item.name}`}
                     >
                       <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
-                    </div>
+                    </button>
                   </div>
                 </div>
               </NeoCard>

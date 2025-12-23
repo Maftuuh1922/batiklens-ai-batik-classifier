@@ -13,7 +13,6 @@ export function Scanner() {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       setState('scanning');
-      // Simulate processing with a clean timeout
       const timer = setTimeout(() => {
         try {
           const randomResult = scannerResults[Math.floor(Math.random() * scannerResults.length)];
@@ -35,6 +34,11 @@ export function Scanner() {
   const reset = () => {
     setState('idle');
     setResult(null);
+  };
+  const openDetailedInfo = () => {
+    if (result) {
+      setIsDetailOpen(true);
+    }
   };
   return (
     <section id="scanner" className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-24 overflow-visible">
@@ -149,10 +153,10 @@ export function Scanner() {
                         <RefreshCcw className="w-5 h-5" /> Scan Lagi
                       </button>
                       <button
-                        onClick={() => setIsDetailOpen(true)}
-                        className="neo-btn bg-white text-black px-8 py-4 rounded-2xl text-base md:text-lg flex-1 sm:flex-none"
+                        onClick={openDetailedInfo}
+                        className="neo-btn bg-white text-black px-8 py-4 rounded-2xl text-base md:text-lg flex-1 sm:flex-none group"
                       >
-                        Detail Lengkap <ArrowUpRight className="w-5 h-5" />
+                        Detail Lengkap <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                       </button>
                     </div>
                   </div>
