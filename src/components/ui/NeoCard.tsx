@@ -13,16 +13,15 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
   // Mouse position values
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  // Smooth springs
+  // Smooth springs for fluid motion
   const mouseX = useSpring(x, { stiffness: 300, damping: 30 });
   const mouseY = useSpring(y, { stiffness: 300, damping: 30 });
-  // Transforms for 3D rotation - Disabled on mobile
+  // Transforms for 3D rotation - Disabled on mobile for UX
   const rotateX = useTransform(mouseY, [-0.5, 0.5], isMobile ? [0, 0] : [10, -10]);
   const rotateY = useTransform(mouseX, [-0.5, 0.5], isMobile ? [0, 0] : [-10, 10]);
-  // Transform for dynamic shadow - Subtle on mobile
+  // Transform for dynamic shadow that follows the "light" source
   const shadowX = useTransform(mouseX, [-0.5, 0.5], isMobile ? [6, 6] : [10, 2]);
   const shadowY = useTransform(mouseY, [-0.5, 0.5], isMobile ? [6, 6] : [10, 2]);
-  // Combine into a dynamic box shadow string
   const dynamicShadow = useTransform(
     [shadowX, shadowY],
     ([sx, sy]) => `${sx}px ${sy}px 0px 0px #000000`
@@ -44,7 +43,7 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
   const cardContent = (
     <div
       className={cn(
-        "bg-white neo-border rounded-2xl overflow-hidden h-full",
+        "bg-white neo-border rounded-2xl overflow-hidden h-full flex flex-col",
         (!animate || isMobile) && "neo-shadow",
         className
       )}
@@ -54,10 +53,7 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
   );
   if (animate && !isMobile) {
     return (
-      <div
-        className="perspective-[1000px] h-full"
-        style={{ perspective: "1000px" }}
-      >
+      <div className="h-full" style={{ perspective: "1200px" }}>
         <motion.div
           ref={cardRef}
           onMouseMove={handleMouseMove}
@@ -69,7 +65,7 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
             transformStyle: "preserve-3d",
             willChange: "transform"
           }}
-          className="h-full rounded-2xl transition-shadow duration-200"
+          className="h-full rounded-2xl transition-shadow duration-300 ease-out"
         >
           {cardContent}
         </motion.div>
