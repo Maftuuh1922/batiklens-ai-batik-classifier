@@ -51,13 +51,13 @@ export function Scanner() {
     setResult(null);
   };
   return (
-    <section id="scanner" className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32 overflow-visible scroll-mt-24">
+    <section id="scanner" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32 overflow-visible scroll-mt-24">
       <div aria-live="polite" className="sr-only">
         {state === 'idle' && "Scanner is ready to upload."}
         {state === 'scanning' && "Analyzing the uploaded batik motif..."}
         {state === 'result' && `Identification complete. Result: ${result?.name}.`}
       </div>
-      <motion.div
+      <motion.div 
         animate={{ x: [-15, 15, -15] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-10 -left-10 opacity-10 text-coral pointer-events-none hidden lg:block"
@@ -79,7 +79,7 @@ export function Scanner() {
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.02 }}
-                className="w-full h-full flex flex-col"
+                className="w-full h-full flex flex-col flex-grow"
               >
                 <div
                   {...getRootProps()}
@@ -105,7 +105,7 @@ export function Scanner() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="w-full h-full flex flex-col items-center justify-center gap-8 md:gap-12 py-12"
+                className="w-full h-full flex flex-col items-center justify-center gap-8 md:gap-12 py-12 flex-grow"
               >
                 <div className="relative w-40 h-40 md:w-64 md:h-64 flex items-center justify-center">
                   <motion.div
@@ -140,7 +140,7 @@ export function Scanner() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="w-full h-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-stretch justify-center p-2"
+                className="w-full h-full flex flex-col lg:flex-row gap-8 lg:gap-16 items-center lg:items-stretch justify-center p-2 flex-grow"
               >
                 <div className="w-full lg:w-1/2 neo-border rounded-3xl overflow-hidden shadow-neo-sm bg-gray-100 aspect-square max-w-[450px] shrink-0">
                   <img src={result.imageUrl} alt={result.name} className="w-full h-full object-cover" />
@@ -163,12 +163,17 @@ export function Scanner() {
                     <p className="leading-relaxed relative z-10"><strong>Filosofi:</strong> {result.philosophy}</p>
                   </div>
                   <div className="pt-4 flex flex-col sm:flex-row gap-4">
-                    <button onClick={reset} className="neo-btn bg-black text-white px-8 py-4 rounded-3xl text-base md:text-lg flex-1 sm:flex-none">
+                    <button 
+                      onClick={reset} 
+                      className="neo-btn bg-black text-white px-8 py-4 rounded-3xl text-base md:text-lg flex-1 sm:flex-none"
+                      aria-label="Scan ulang gambar baru"
+                    >
                       <RefreshCcw className="w-5 h-5 mr-2" /> Scan Lagi
                     </button>
                     <button
                       onClick={() => setIsDetailOpen(true)}
                       className="neo-btn bg-white text-black px-8 py-4 rounded-3xl text-base md:text-lg flex-1 sm:flex-none group"
+                      aria-label={`Lihat detail lengkap tentang ${result.name}`}
                     >
                       Detail Lengkap <ArrowUpRight className="w-5 h-5 ml-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </button>

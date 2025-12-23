@@ -52,9 +52,9 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
       initial={{ opacity: 0, y: isMobile ? 20 : 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="w-full flex flex-col lg:flex-row h-full overflow-hidden"
+      className="w-full flex flex-col lg:flex-row h-full overflow-hidden overscroll-behavior-contain"
     >
-      <div className="w-full lg:w-1/2 h-[35vh] sm:h-80 lg:h-full relative overflow-hidden lg:border-r-3 border-black shrink-0 lg:rounded-l-4xl">
+      <div className="w-full lg:w-1/2 h-[40vh] sm:h-80 lg:h-full relative overflow-hidden lg:border-r-3 border-b-3 lg:border-b-0 border-black shrink-0 lg:rounded-l-4xl">
         <img
           src={motif.imageUrl}
           alt={motif.name}
@@ -74,10 +74,10 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
       </div>
       <div className="flex-1 h-full flex flex-col bg-white overflow-hidden relative">
         <div className="absolute inset-0 bg-pattern-parang opacity-[0.03] pointer-events-none" />
-        <div className="flex-grow overflow-y-auto p-6 md:p-8 lg:p-12 scrollbar-thin scrollbar-thumb-black/20">
+        <div className="flex-grow overflow-y-auto p-6 md:p-8 lg:p-12 scrollbar-thin scrollbar-thumb-black/20 overscroll-contain">
           <div className="space-y-10 md:space-y-12 max-w-2xl mx-auto lg:mx-0">
             <div className="space-y-6">
-              <h2 className="text-3xl sm:text-4xl lg:text-7xl font-display font-bold uppercase tracking-tighter leading-[0.9] text-coral pr-12 lg:pr-16">
+              <h2 className="text-4xl sm:text-5xl lg:text-7xl font-display font-bold uppercase tracking-tighter leading-[0.9] text-coral pr-12 lg:pr-16 break-words whitespace-normal">
                 {motif.name}
               </h2>
               <div className="h-2 w-24 bg-lime neo-border rounded-full" />
@@ -152,7 +152,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
       <Sheet open={isOpen} onOpenChange={onClose}>
         <SheetPortal>
           <SheetOverlay className="neo-modal-overlay" />
-          <SheetContent side="bottom" className="z-[1001] h-[92vh] w-full p-0 neo-border border-b-0 rounded-t-4xl bg-white overflow-hidden outline-none flex flex-col shadow-none">
+          <SheetContent side="bottom" className="z-[1001] h-[92vh] w-full p-0 neo-border border-b-0 rounded-t-4xl bg-white overflow-hidden outline-none flex flex-col shadow-none focus:ring-0">
             <SheetHeader className="sr-only">
               <SheetTitle>{motif?.name || "Detail Batik"}</SheetTitle>
               <SheetDescription>Informasi detail motif batik Nusantara.</SheetDescription>
@@ -160,7 +160,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
             <div className="absolute top-4 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-black/20 rounded-full z-[71]" />
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 bg-white neo-border p-2.5 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90"
+              className="absolute top-5 right-5 bg-white neo-border p-2.5 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90 outline-none focus:ring-0"
               aria-label="Close sheet"
             >
               <X className="w-5 h-5" />
@@ -180,7 +180,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
       <DialogPortal>
         <DialogOverlay className="neo-modal-overlay" />
         <DialogContent
-          className="z-[1001] fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[95vw] lg:max-w-6xl w-full p-0 neo-border bg-white overflow-hidden outline-none rounded-4xl flex flex-col lg:flex-row h-[85vh] transition-all duration-300 shadow-neo-lg border-3 border-black"
+          className="z-[1001] fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[95vw] lg:max-w-6xl w-full p-0 neo-border bg-white overflow-hidden outline-none rounded-4xl flex flex-col lg:flex-row h-[85vh] transition-all duration-300 shadow-neo-lg border-3 border-black focus:ring-0"
         >
           <DialogHeader className="sr-only">
             <DialogTitle>{motif?.name || "Detail Batik"}</DialogTitle>
@@ -188,7 +188,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
           </DialogHeader>
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 bg-white neo-border p-3 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90 flex items-center justify-center group"
+            className="absolute top-6 right-6 bg-white neo-border p-3 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90 flex items-center justify-center group outline-none focus:ring-0"
             aria-label="Close dialog"
           >
             <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />

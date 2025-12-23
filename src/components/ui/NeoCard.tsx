@@ -16,12 +16,12 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
   // Smooth springs for fluid motion
   const mouseX = useSpring(x, { stiffness: 300, damping: 30 });
   const mouseY = useSpring(y, { stiffness: 300, damping: 30 });
-  // Transforms for 3D rotation - Disabled on mobile for UX
-  const rotateX = useTransform(mouseY, [-0.5, 0.5], isMobile ? [0, 0] : [10, -10]);
-  const rotateY = useTransform(mouseX, [-0.5, 0.5], isMobile ? [0, 0] : [-10, 10]);
-  // Transform for dynamic shadow that follows the "light" source
-  const shadowX = useTransform(mouseX, [-0.5, 0.5], isMobile ? [6, 6] : [10, 2]);
-  const shadowY = useTransform(mouseY, [-0.5, 0.5], isMobile ? [6, 6] : [10, 2]);
+  // Transforms for 3D rotation - Evaluated via function mapping to ensure stability across resizing
+  const rotateX = useTransform(mouseY, (val) => isMobile ? 0 : val * -20);
+  const rotateY = useTransform(mouseX, (val) => isMobile ? 0 : val * 20);
+  // Dynamic shadow that follows the "light" source
+  const shadowX = useTransform(mouseX, (val) => isMobile ? 6 : 6 + (val * -8));
+  const shadowY = useTransform(mouseY, (val) => isMobile ? 6 : 6 + (val * -8));
   const dynamicShadow = useTransform(
     [shadowX, shadowY],
     ([sx, sy]) => `${sx}px ${sy}px 0px 0px #000000`
@@ -43,10 +43,11 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
   const cardContent = (
     <div
       className={cn(
-        "bg-white neo-border rounded-3xl overflow-hidden h-full flex flex-col",
+        "bg-white neo-border rounded-3xl overflow-hidden h-full flex flex-col motion-safe-layout",
         (!animate || isMobile) && "neo-shadow",
         className
       )}
+      style={{ backfaceVisibility: 'hidden' }}
     >
       {children}
     </div>
