@@ -5,22 +5,30 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
     @apply selection:bg-lime selection:text-black;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
     cursor: default;
   }
   h1, h2, h3, h4 {
     @apply font-display tracking-tight;
   }
+  /* Standardizing all card-like elements to 24px */
+  .rounded-2xl {
+    border-radius: 24px !important;
+  }
 }
 @layer components {
   .neo-border {
     @apply border-3 border-black;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .neo-shadow {
     @apply shadow-neo;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .neo-btn {
     @apply neo-border neo-shadow px-4 py-2 md:px-6 md:py-3 rounded-2xl font-bold transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-neo-lg flex items-center justify-center gap-2 text-sm md:text-base;
@@ -41,7 +49,7 @@
 }
 @layer utilities {
   .neo-modal-overlay {
-    @apply fixed inset-0 z-[1000] bg-black/80 backdrop-blur-md transition-all duration-300;
+    @apply fixed inset-0 z-[1000] bg-black/60 backdrop-blur-lg transition-all duration-300;
   }
   .shadow-neo-lg {
     box-shadow: 10px 10px 0px 0px #000000;
@@ -59,6 +67,12 @@
     @apply leading-[1.0] sm:leading-tight;
   }
 }
+/* Ensure Radix portals are above everything else */
 [data-radix-portal] {
   @apply relative z-[1001];
+}
+/* Prevent layout shifts during Framer Motion transitions */
+.motion-safe-layout {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
