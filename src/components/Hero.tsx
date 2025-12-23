@@ -8,7 +8,7 @@ export function Hero() {
   return (
     <section id="hero" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Parallax Batik Background Layer */}
-      <motion.div 
+      <motion.div
         style={{ y: yParallax }}
         className="absolute inset-0 bg-pattern-parang opacity-[0.03] pointer-events-none -z-10"
       />
@@ -28,9 +28,9 @@ export function Hero() {
             AI-POWERED HERITAGE
           </div>
           <div className="space-y-4">
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-bold leading-[0.85] tracking-tighter">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[1.1] md:leading-[1.0] lg:leading-[0.9] xl:leading-[0.85] tracking-tighter">
               IDENTIFIKASI <br />
-              <span className="text-coral underline decoration-black decoration-8 underline-offset-8">BATIK</span> INSTAN.
+              <span className="text-coral underline decoration-black decoration-4 sm:decoration-8 underline-offset-4 sm:underline-offset-8">BATIK</span> INSTAN.
             </h1>
           </div>
           <p className="text-lg md:text-2xl font-medium text-muted-foreground max-w-lg leading-relaxed border-l-4 border-lime pl-6">
