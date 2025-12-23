@@ -26,7 +26,7 @@
     @apply neo-border neo-shadow px-4 py-2 md:px-6 md:py-3 rounded-2xl font-bold transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-neo-lg flex items-center justify-center gap-2 text-sm md:text-base;
   }
   .glass-nav {
-    @apply sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b-3 border-black;
+    @apply sticky top-0 z-[60] bg-white/70 backdrop-blur-md border-b-3 border-black;
   }
   .bg-pattern-batik {
     background-image: url('https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=40&w=400');
@@ -41,7 +41,7 @@
 }
 @layer utilities {
   .neo-modal-overlay {
-    @apply bg-black/60 backdrop-blur-sm transition-all duration-300;
+    @apply fixed inset-0 z-[1000] bg-black/80 backdrop-blur-md transition-all duration-300;
   }
   .shadow-neo-lg {
     box-shadow: 10px 10px 0px 0px #000000;
@@ -60,5 +60,5 @@
   }
 }
 [data-radix-portal] {
-  @apply relative z-[100];
+  @apply relative z-[1001];
 }
