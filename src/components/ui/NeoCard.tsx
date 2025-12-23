@@ -20,6 +20,11 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
   // Transform for dynamic shadow
   const shadowX = useTransform(mouseX, [-0.5, 0.5], [10, 2]);
   const shadowY = useTransform(mouseY, [-0.5, 0.5], [10, 2]);
+  // Combine into a dynamic box shadow string
+  const dynamicShadow = useTransform(
+    [shadowX, shadowY],
+    ([sx, sy]) => `${sx}px ${sy}px 0px 0px #000000`
+  );
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current || !animate) return;
     const rect = cardRef.current.getBoundingClientRect();
@@ -36,7 +41,7 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
     y.set(0);
   };
   const cardContent = (
-    <div 
+    <div
       className={cn(
         "bg-white neo-border rounded-2xl overflow-hidden h-full",
         !animate && "neo-shadow",
@@ -48,7 +53,7 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
   );
   if (animate) {
     return (
-      <div 
+      <div
         className="perspective-[1000px] h-full"
         style={{ perspective: "1000px" }}
       >
@@ -59,11 +64,9 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
           style={{
             rotateX,
             rotateY,
+            boxShadow: dynamicShadow,
             transformStyle: "preserve-3d",
-            boxShadow: useTransform(
-              [shadowX, shadowY],
-              ([sx, sy]) => `${sx}px ${sy}px 0px 0px #000000`
-            )
+            willChange: "transform"
           }}
           className="h-full rounded-2xl transition-shadow duration-200"
         >
