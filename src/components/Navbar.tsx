@@ -10,33 +10,33 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+const NavLinks = ({ className = "", onClick = () => {} }: { className?: string; onClick?: () => void }) => (
+  <div className={className}>
+    <a
+      href="#hero"
+      onClick={onClick}
+      className="hover:text-coral transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-coral after:transition-all font-bold uppercase tracking-tight"
+    >
+      Home
+    </a>
+    <a
+      href="#scanner"
+      onClick={onClick}
+      className="hover:text-coral transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-coral after:transition-all font-bold uppercase tracking-tight"
+    >
+      Scanner
+    </a>
+    <a
+      href="#gallery"
+      onClick={onClick}
+      className="hover:text-coral transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-coral after:transition-all font-bold uppercase tracking-tight"
+    >
+      Gallery
+    </a>
+  </div>
+);
 export function Navbar() {
   const [imgError, setImgError] = useState(false);
-  const NavLinks = ({ className = "", onClick = () => {} }) => (
-    <div className={className}>
-      <a
-        href="#hero"
-        onClick={onClick}
-        className="hover:text-coral transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-coral after:transition-all font-bold uppercase tracking-tight"
-      >
-        Home
-      </a>
-      <a
-        href="#scanner"
-        onClick={onClick}
-        className="hover:text-coral transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-coral after:transition-all font-bold uppercase tracking-tight"
-      >
-        Scanner
-      </a>
-      <a
-        href="#gallery"
-        onClick={onClick}
-        className="hover:text-coral transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-coral after:transition-all font-bold uppercase tracking-tight"
-      >
-        Gallery
-      </a>
-    </div>
-  );
   return (
     <nav className="glass-nav relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

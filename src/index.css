@@ -3,6 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground font-sans;
     cursor: default;
@@ -53,7 +56,7 @@
     @apply bg-transparent;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply bg-black/20 rounded-full;
+    @apply bg-black/30 rounded-full hover:bg-black/50 transition-colors;
   }
 }
 [data-radix-portal] {

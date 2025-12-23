@@ -27,9 +27,12 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl p-0 neo-border neo-shadow bg-white overflow-hidden outline-none sm:rounded-2xl rounded-2xl">
-        <DialogDescription className="sr-only">
-          Detail informasi mengenai motif batik {motif.name}, termasuk asal usul, filosofi, dan sejarahnya.
-        </DialogDescription>
+        <DialogHeader className="sr-only">
+          <DialogTitle>{motif.name}</DialogTitle>
+          <DialogDescription>
+            Detail informasi mengenai motif batik {motif.name}, termasuk asal usul, filosofi, dan sejarahnya.
+          </DialogDescription>
+        </DialogHeader>
         <div className="absolute inset-0 bg-pattern-parang opacity-[0.03] pointer-events-none" />
         <div className="flex flex-col lg:flex-row h-full max-h-[90vh]">
           {/* Visual Side */}
