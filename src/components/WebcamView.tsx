@@ -21,6 +21,10 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
       streamRef.current.getTracks().forEach(track => track.stop());
       streamRef.current = null;
     }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+    setStream(null);
   }, []);
   const startCamera = useCallback(async () => {
     setError(null);
@@ -66,13 +70,19 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
     const resizeOverlay = () => {
       const parent = canvas.parentElement;
       if (parent) {
-        canvas.width = parent.clientWidth;
-        canvas.height = parent.clientHeight;
+        // Use floor to prevent sub-pixel issues on high-DPI screens
+        canvas.width = Math.floor(parent.clientWidth);
+        canvas.height = Math.floor(parent.clientHeight);
       }
     };
     resizeOverlay();
     window.addEventListener('resize', resizeOverlay);
     const animate = () => {
+      // Guard against zero-dimension frames
+      if (canvas.height <= 0 || canvas.width <= 0) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+        return;
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const y = position;
       const gradient = ctx.createLinearGradient(0, y - 20, 0, y + 20);
@@ -101,9 +111,10 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
     };
   }, [isReady]);
   const captureFrame = () => {
-    if (!videoRef.current || !canvasRef.current) return;
+    if (!videoRef.current || !canvasRef.current || !isReady) return;
+    // Trigger immediate flash
     setIsFlashActive(true);
-    setTimeout(() => setIsFlashActive(false), 150);
+    const flashTimeout = setTimeout(() => setIsFlashActive(false), 150);
     const video = videoRef.current;
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
@@ -114,6 +125,7 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
       const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
       onCapture(dataUrl);
     }
+    return () => clearTimeout(flashTimeout);
   };
   return (
     <div className="relative w-full h-full min-h-[400px] flex flex-col items-center justify-center bg-black rounded-3xl overflow-hidden neo-border">

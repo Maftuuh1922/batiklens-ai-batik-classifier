@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -47,7 +47,7 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
   }
   return (
     <motion.div
-      initial={{ opacity: 0, y: isMobile ? 40 : 0 }}
+      initial={false} // Perceived performance optimization
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: isMobile ? 40 : 0 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -137,10 +137,21 @@ interface BatikDetailModalProps {
 }
 export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalProps) {
   const isMobile = useIsMobile();
+  // Robust scroll locking for multi-instance scenarios
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
   const CloseButton = (
     <button
       onClick={onClose}
-      className="absolute top-6 right-6 z-[60] bg-white neo-border p-2.5 rounded-xl hover:bg-coral hover:text-white transition-all shadow-neo-sm group active:scale-95"
+      className="absolute top-6 right-6 z-[70] bg-white neo-border p-2.5 rounded-xl hover:bg-coral hover:text-white transition-all shadow-neo-sm group active:scale-95"
       aria-label="Tutup Detail"
     >
       <X className="w-5 h-5 group-hover:rotate-90 transition-transform" />
@@ -151,13 +162,13 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
       <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
         <SheetPortal>
           <SheetOverlay className="neo-modal-overlay" />
-          <SheetContent 
-            side="bottom" 
+          <SheetContent
+            side="bottom"
             className="z-[1001] h-[94vh] w-full p-0 border-3 border-black border-b-0 rounded-t-[32px] bg-white overflow-hidden outline-none flex flex-col shadow-none [&>button:last-child]:hidden"
           >
             <SheetHeader className="sr-only">
-              <SheetTitle>{motif?.name}</SheetTitle>
-              <SheetDescription>Detail Budaya Batik</SheetDescription>
+              <SheetTitle>{motif?.name || "Detail Batik"}</SheetTitle>
+              <SheetDescription>Detail Budaya Batik Nusantara</SheetDescription>
             </SheetHeader>
             <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-black/20 rounded-full z-50 hover:bg-black/40 transition-colors cursor-pointer" />
             {CloseButton}
@@ -175,12 +186,12 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogPortal>
         <DialogOverlay className="neo-modal-overlay" />
-        <DialogContent 
+        <DialogContent
           className="z-[1001] fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] max-w-5xl w-[90vw] p-0 neo-border bg-white overflow-hidden outline-none rounded-4xl flex flex-col lg:flex-row h-[80vh] shadow-neo-lg border-3 border-black [&>button:last-child]:hidden"
         >
           <DialogHeader className="sr-only">
-            <DialogTitle>{motif?.name}</DialogTitle>
-            <DialogDescription>Detail Budaya Batik</DialogDescription>
+            <DialogTitle>{motif?.name || "Detail Batik"}</DialogTitle>
+            <DialogDescription>Detail Budaya Batik Nusantara</DialogDescription>
           </DialogHeader>
           {CloseButton}
           <AnimatePresence mode="wait">

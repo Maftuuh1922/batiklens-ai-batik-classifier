@@ -25,9 +25,9 @@
     transition: box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .neo-btn {
-    @apply neo-border neo-shadow px-5 py-3 rounded-2xl font-bold transition-all 
-           active:translate-x-[2px] active:translate-y-[2px] active:shadow-none 
-           hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-neo-lg 
+    @apply neo-border neo-shadow px-5 py-3 rounded-2xl font-bold transition-all
+           active:translate-x-[2px] active:translate-y-[2px] active:shadow-none
+           hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-neo-lg
            flex items-center justify-center gap-2 text-sm md:text-base select-none;
   }
   .glass-nav {
@@ -55,6 +55,15 @@
     background-size: 200px;
     opacity: 0.04;
   }
+  /* Sonner Neobrutalist Override */
+  [data-sonner-toaster] {
+    --normal-bg: #FFFFFF !important;
+    --normal-border: #000000 !important;
+    --normal-text: #000000 !important;
+  }
+  [data-sonner-toast] {
+    @apply neo-border shadow-neo-sm rounded-2xl !bg-white !opacity-100 font-bold !p-4 !border-3;
+  }
 }
 @layer utilities {
   .shadow-neo-lg {
@@ -67,9 +76,16 @@
     @apply bg-transparent;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply bg-black/20 rounded-full hover:bg-black/40 transition-colors;
+    @apply bg-black/20 rounded-full transition-colors;
   }
-  /* Scroll Margin Adjustments for Sticky Nav */
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-coral/60;
+  }
+  /* Sticky Nav Layout Stability */
+  main > section {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 500px;
+  }
   #home { scroll-margin-top: 100px; }
   #scanner { scroll-margin-top: 100px; }
   #gallery { scroll-margin-top: 100px; }
@@ -77,11 +93,9 @@
     #home, #scanner, #gallery { scroll-margin-top: 120px; }
   }
 }
-/* Custom Modal Overlay */
 .neo-modal-overlay {
-  @apply fixed inset-0 z-[1000] bg-black/60 backdrop-blur-[4px] transition-all;
+  @apply fixed inset-0 z-[1000] bg-black/60 backdrop-blur-[8px] transition-all;
 }
-/* Safe scroll locking for mobile */
 body[style*="overflow: hidden"] {
   padding-right: 0px !important;
 }
