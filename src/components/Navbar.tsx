@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Camera, Menu, X, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Sheet,
   SheetContent,
@@ -17,7 +17,7 @@ const NavLinks = ({ className = "", onClick = () => {} }: { className?: string; 
         key={label}
         href={`#${label.toLowerCase()}`}
         onClick={onClick}
-        className="hover:text-coral transition-colors relative font-black uppercase tracking-widest text-sm py-2 group"
+        className="hover:text-coral transition-colors relative font-display font-black uppercase tracking-widest text-sm py-2 group"
       >
         {label}
         <span className="absolute bottom-0 left-0 h-1.5 w-0 group-hover:w-full bg-lime transition-all duration-300" />
@@ -33,6 +33,13 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  const handleBrandClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.location.hash) {
+      window.history.pushState("", document.title, window.location.pathname + window.location.search);
+    }
+  };
   return (
     <nav className={`glass-nav sticky top-0 z-[60] transition-all duration-300 ${isScrolled ? 'h-18 md:h-20 shadow-neo-sm' : 'h-24 md:h-28'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
@@ -41,7 +48,7 @@ export function Navbar() {
             className="flex items-center gap-4 md:gap-6 cursor-pointer group"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={handleBrandClick}
           >
             <div className="bg-lime w-12 h-12 md:w-16 md:h-16 flex items-center justify-center neo-border rounded-2xl md:rounded-3xl overflow-hidden transition-all group-hover:shadow-neo-sm group-hover:-rotate-3">
               {!imgError ? (
@@ -59,9 +66,7 @@ export function Navbar() {
               BatikLens
             </span>
           </motion.div>
-          {/* Desktop Navigation */}
           <NavLinks className="hidden md:flex items-center gap-14" />
-          {/* Mobile Navigation */}
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>

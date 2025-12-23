@@ -6,7 +6,7 @@ export function Hero() {
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 500], [0, -150]);
   return (
-    <section id="hero" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="home" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
       <motion.div
         style={{ y: yParallax }}
         className="absolute inset-0 bg-pattern-parang opacity-[0.05] pointer-events-none -z-10"
@@ -75,7 +75,6 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.2, type: "spring", bounce: 0.3 }}
           className="relative px-4 sm:px-10 mt-12 lg:mt-0"
         >
-          {/* Decorative Frames with 40px radius */}
           <div className="absolute -inset-4 md:-inset-8 bg-pattern-batik opacity-[0.08] neo-border -z-10 rounded-4xl rotate-3" />
           <div className="absolute -inset-4 md:-inset-8 bg-lime/20 neo-border -z-20 rounded-4xl -rotate-2" />
           <div className="neo-border shadow-neo-lg bg-coral rounded-4xl aspect-[4/5] relative overflow-hidden group">
@@ -85,7 +84,6 @@ export function Hero() {
               className="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100 ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-70 group-hover:opacity-40 transition-opacity" />
-            {/* Spinning Badge */}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -95,7 +93,6 @@ export function Hero() {
                 • ASLI INDONESIA • TEKNOLOGI LOKAL • WARISAN DUNIA • BATIK LENS AI •
               </p>
             </motion.div>
-            {/* Bottom Card Overlay with 32px radius */}
             <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:right-12 bg-white neo-border p-6 md:p-10 rounded-3xl transition-all duration-500 z-10 shadow-neo">
               <div className="flex justify-between items-start mb-4">
                 <div className="space-y-1">

@@ -51,8 +51,7 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="w-full flex flex-col lg:flex-row h-full overflow-hidden"
     >
-      {/* Left Visual Section - Full height on desktop */}
-      <div className="w-full lg:w-1/2 h-[45vh] sm:h-96 lg:h-full relative overflow-hidden lg:border-r-3 border-black shrink-0">
+      <div className="w-full lg:w-1/2 h-[45vh] sm:h-96 lg:h-full relative overflow-hidden lg:border-r-3 border-black shrink-0 lg:rounded-l-4xl">
         <img
           src={motif.imageUrl}
           alt={motif.name}
@@ -70,11 +69,10 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
           )}
         </div>
       </div>
-      {/* Right Content Section - Spacious and highly readable */}
       <div className="flex-1 p-8 sm:p-12 lg:p-16 overflow-y-auto relative z-10 scrollbar-thin scrollbar-thumb-black/20 text-left bg-white bg-pattern-parang/5">
         <div className="space-y-12 md:space-y-16">
           <div className="space-y-8">
-            <h2 className="text-4xl sm:text-5xl lg:text-8xl font-display font-bold uppercase tracking-tighter leading-[0.85] text-coral pr-12 lg:pr-20">
+            <h2 className="text-4xl sm:text-5xl lg:text-8xl font-display font-bold uppercase tracking-tighter leading-[0.9] text-coral pr-12 lg:pr-20">
               {motif.name}
             </h2>
             <div className="h-3 w-32 bg-lime neo-border rounded-full" />
@@ -176,7 +174,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
       <DialogPortal>
         <DialogOverlay className="neo-modal-overlay" />
         <DialogContent
-          className="z-[1001] fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[95vw] md:max-w-6xl lg:max-w-7xl w-full p-0 neo-border neo-shadow bg-white overflow-hidden outline-none rounded-4xl flex flex-col lg:flex-row max-h-[92vh] transition-all duration-300 shadow-neo-lg border-3 border-black"
+          className="z-[1001] fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[95vw] md:max-w-6xl lg:max-w-7xl w-full p-0 neo-border bg-white overflow-hidden outline-none rounded-4xl flex flex-col lg:flex-row max-h-[92vh] transition-all duration-300 shadow-neo-lg border-3 border-black"
         >
           <DialogHeader className="sr-only">
             <DialogTitle>{motif?.name || "Detail Batik"}</DialogTitle>
