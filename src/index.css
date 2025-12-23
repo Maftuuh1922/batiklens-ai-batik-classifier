@@ -33,6 +33,16 @@
   .glass-nav {
     @apply sticky top-0 z-[60] border-b-3 border-black;
   }
+  .mirror-mode {
+    transform: scaleX(-1);
+  }
+  @keyframes ping-slow {
+    0% { transform: scale(1); opacity: 1; }
+    70%, 100% { transform: scale(1.5); opacity: 0; }
+  }
+  .animate-ping-slow {
+    animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
   .bg-pattern-batik {
     background-image: url('https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=10&w=200');
     background-repeat: repeat;

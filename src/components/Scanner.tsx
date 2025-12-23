@@ -5,7 +5,8 @@ import { Upload, Search, RefreshCcw, Info, Cloud, ArrowUpRight } from 'lucide-re
 import { NeoCard } from './ui/NeoCard';
 import { scannerResults } from '@/lib/mockData';
 import { BatikDetailModal } from './BatikDetailModal';
-type ScannerState = 'idle' | 'scanning' | 'result';
+import { WebcamView } from './WebcamView';
+type ScannerState = 'idle' | 'scanning' | 'result' | 'webcam';
 export function Scanner() {
   const [state, setState] = useState<ScannerState>('idle');
   const [result, setResult] = useState<typeof scannerResults[0] | null>(null);
@@ -29,6 +30,16 @@ export function Scanner() {
       }, 2500);
     }
   }, [state]);
+  const handleCapture = useCallback((imageSrc: string) => {
+    // In a real app, we'd send the imageSrc (base64) to the AI worker
+    setState('scanning');
+    scanTimerRef.current = setTimeout(() => {
+      const randomResult = scannerResults[Math.floor(Math.random() * scannerResults.length)];
+      // We use a random mock result but in production the imageSrc would be analyzed
+      setResult(randomResult);
+      setState('result');
+    }, 2500);
+  }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'image/*': [] },
@@ -65,6 +76,13 @@ export function Scanner() {
                 exit={{ opacity: 0, scale: 1.02 }}
                 className="w-full h-full flex flex-col flex-grow"
               >
+                <div className="flex flex-wrap justify-center gap-4 mb-8">
+                   <button className="neo-btn bg-lime text-black px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2">UPLOAD FILE</button>
+                   <button 
+                    onClick={() => setState('webcam')}
+                    className="neo-btn bg-white text-black px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2 hover:bg-coral hover:text-white transition-colors"
+                   >KAMERA LANGSUNG</button>
+                </div>
                 <div
                   {...getRootProps()}
                   className={`relative neo-border border-dashed border-black/20 p-8 md:p-16 rounded-3xl flex flex-col items-center gap-6 md:gap-10 cursor-pointer transition-all h-full justify-center flex-grow group ${
@@ -81,6 +99,17 @@ export function Scanner() {
                     <p className="text-sm md:text-base text-muted-foreground font-medium">Format: JPG, PNG, HEIC (Max 10MB)</p>
                   </div>
                 </div>
+              </motion.div>
+            )}
+            {state === 'webcam' && (
+              <motion.div
+                key="webcam"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="w-full h-full min-h-[500px]"
+              >
+                <WebcamView onCapture={handleCapture} onClose={() => setState('idle')} />
               </motion.div>
             )}
             {state === 'scanning' && (
