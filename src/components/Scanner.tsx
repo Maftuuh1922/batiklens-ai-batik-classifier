@@ -18,7 +18,8 @@ export function Scanner() {
   }, []);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (state !== 'idle') return;
-    if (acceptedFiles.length > 0) {
+    const file = acceptedFiles[0];
+    if (file) {
       if (scanTimerRef.current) clearTimeout(scanTimerRef.current);
       setState('scanning');
       scanTimerRef.current = setTimeout(() => {
@@ -50,22 +51,27 @@ export function Scanner() {
     setResult(null);
   };
   return (
-    <section id="scanner" className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-28 overflow-visible scroll-mt-24">
+    <section id="scanner" className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32 overflow-visible scroll-mt-24">
+      <div aria-live="polite" className="sr-only">
+        {state === 'idle' && "Scanner is ready to upload."}
+        {state === 'scanning' && "Analyzing the uploaded batik motif..."}
+        {state === 'result' && `Identification complete. Result: ${result?.name}.`}
+      </div>
       <motion.div
-        animate={{ x: [-20, 20, -20] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-10 -left-10 opacity-10 text-coral pointer-events-none hidden md:block"
+        animate={{ x: [-15, 15, -15] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-10 -left-10 opacity-10 text-coral pointer-events-none hidden lg:block"
       >
         <Cloud size={160} fill="currentColor" />
       </motion.div>
-      <div className="text-center mb-12 md:mb-20 space-y-4 relative z-10">
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold uppercase tracking-tighter">UJI MOTIF ANDA</h2>
-        <p className="text-base md:text-2xl font-medium text-muted-foreground max-w-3xl mx-auto px-4">
+      <div className="text-center mb-10 md:mb-16 space-y-4 relative z-10">
+        <h2 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tighter">UJI MOTIF ANDA</h2>
+        <p className="text-base md:text-xl font-medium text-muted-foreground max-w-2xl mx-auto px-4">
           Unggah foto kain batik untuk dianalisis oleh AI Vision kami yang didukung oleh database 600+ motif Nusantara.
         </p>
       </div>
       <div className="min-h-[500px] md:min-h-[600px] flex flex-col relative z-10">
-        <NeoCard className="p-4 sm:p-8 md:p-14 flex-grow flex flex-col items-center justify-center relative overflow-hidden rounded-4xl">
+        <NeoCard className="p-4 sm:p-6 md:p-10 flex-grow flex flex-col items-center justify-center relative overflow-hidden rounded-4xl">
           <AnimatePresence mode="wait">
             {state === 'idle' && (
               <motion.div
@@ -77,18 +83,18 @@ export function Scanner() {
               >
                 <div
                   {...getRootProps()}
-                  className={`relative neo-border border-dashed border-black/40 p-8 sm:p-16 rounded-3xl flex flex-col items-center gap-8 md:gap-12 cursor-pointer transition-all h-full justify-center overflow-hidden flex-grow group ${
+                  className={`relative neo-border border-dashed border-black/30 p-8 md:p-12 rounded-3xl flex flex-col items-center gap-8 md:gap-10 cursor-pointer transition-all h-full justify-center overflow-hidden flex-grow group ${
                     isDragActive ? 'bg-lime/20 border-lime shadow-neo-sm' : 'bg-gray-50 hover:bg-gray-100 hover:shadow-neo-sm'
                   }`}
                 >
-                  <div className="absolute inset-0 bg-pattern-parang opacity-[0.04] pointer-events-none" />
+                  <div className="absolute inset-0 bg-pattern-parang opacity-[0.03] pointer-events-none" />
                   <input {...getInputProps()} />
-                  <div className="bg-coral p-6 md:p-10 neo-border rounded-4xl relative z-10 text-white shadow-neo group-hover:-translate-y-2 transition-transform">
-                    <Upload className="w-14 h-14 md:w-20 md:h-20" />
+                  <div className="bg-coral p-5 md:p-8 neo-border rounded-4xl relative z-10 text-white shadow-neo group-hover:-translate-y-2 transition-transform">
+                    <Upload className="w-12 h-12 md:w-16 md:h-16" />
                   </div>
                   <div className="text-center relative z-10 space-y-2">
-                    <p className="text-2xl md:text-4xl font-display font-bold uppercase tracking-tight">Identifikasi Pola</p>
-                    <p className="text-base md:text-xl text-muted-foreground font-medium">Tarik & lepas gambar atau klik untuk memilih file</p>
+                    <p className="text-xl md:text-3xl font-display font-bold uppercase tracking-tight">Identifikasi Pola</p>
+                    <p className="text-sm md:text-lg text-muted-foreground font-medium">Tarik & lepas gambar atau klik untuk memilih file</p>
                   </div>
                 </div>
               </motion.div>
@@ -99,32 +105,32 @@ export function Scanner() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex flex-col items-center justify-center gap-10 md:gap-16 py-12"
+                className="w-full h-full flex flex-col items-center justify-center gap-8 md:gap-12 py-12"
               >
-                <div className="relative w-48 h-48 md:w-72 md:h-72 flex items-center justify-center">
+                <div className="relative w-40 h-40 md:w-64 md:h-64 flex items-center justify-center">
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 neo-border rounded-full border-lime border-t-transparent border-[8px] md:border-[12px]"
+                    className="absolute inset-0 neo-border rounded-full border-lime border-t-transparent border-[6px] md:border-[10px]"
                   />
-                  <div className="absolute inset-4 md:inset-8 neo-border rounded-full bg-lime/10 flex items-center justify-center">
-                    <Search className="w-14 h-14 md:w-24 md:h-24 text-black animate-pulse" />
+                  <div className="absolute inset-3 md:inset-6 neo-border rounded-full bg-lime/10 flex items-center justify-center">
+                    <Search className="w-12 h-12 md:w-20 md:h-20 text-black animate-pulse" />
                   </div>
                   <motion.div
-                    animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
+                    animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.25, 0.1] }}
                     transition={{ duration: 2.5, repeat: Infinity }}
                     className="absolute inset-0 bg-lime/20 rounded-full"
                   />
                 </div>
-                <div className="text-center space-y-3">
+                <div className="text-center space-y-2">
                   <motion.h3
-                    animate={{ scale: [1, 1.05, 1] }}
+                    animate={{ scale: [1, 1.03, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
-                    className="text-3xl md:text-5xl font-display font-bold text-coral tracking-tighter uppercase"
+                    className="text-2xl md:text-4xl font-display font-bold text-coral tracking-tighter uppercase"
                   >
                     Deep Scan In Progress
                   </motion.h3>
-                  <p className="font-mono text-xs md:text-sm tracking-[0.4em] text-muted-foreground uppercase font-black">Heritage Matching Engine v5.0.4</p>
+                  <p className="font-mono text-[10px] md:text-xs tracking-[0.3em] text-muted-foreground uppercase font-black">Heritage Matching Engine v5.0.4</p>
                 </div>
               </motion.div>
             )}
@@ -134,40 +140,38 @@ export function Scanner() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="w-full space-y-10"
+                className="w-full h-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center p-2"
               >
-                <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-stretch">
-                  <div className="w-full lg:w-5/12 neo-border rounded-3xl overflow-hidden shadow-neo-sm bg-gray-100 aspect-square lg:aspect-auto h-auto max-h-[500px]">
-                    <img src={result.imageUrl} alt={result.name} className="w-full h-full object-cover" />
+                <div className="w-full lg:w-1/2 neo-border rounded-3xl overflow-hidden shadow-neo-sm bg-gray-100 aspect-square max-w-[450px]">
+                  <img src={result.imageUrl} alt={result.name} className="w-full h-full object-cover" />
+                </div>
+                <div className="w-full lg:w-1/2 flex flex-col justify-center space-y-6 text-left">
+                  <div className="flex flex-wrap items-center justify-between gap-4">
+                    <h3 className="text-3xl md:text-5xl font-display font-bold text-coral tracking-tighter leading-none">{result.name}</h3>
+                    <div className="bg-lime neo-border px-4 py-1.5 rounded-4xl font-black text-xs md:text-sm shadow-neo-sm whitespace-nowrap">
+                      {result.confidence}% MATCH
+                    </div>
                   </div>
-                  <div className="flex-1 flex flex-col justify-center space-y-8 text-left">
-                    <div className="flex flex-wrap items-center justify-between gap-6">
-                      <h3 className="text-4xl md:text-6xl font-display font-bold text-coral tracking-tighter leading-none">{result.name}</h3>
-                      <div className="bg-lime neo-border px-6 py-2 rounded-4xl font-black text-sm md:text-base shadow-neo-sm whitespace-nowrap">
-                        {result.confidence}% AKURASI
-                      </div>
+                  <p className="text-base md:text-xl font-medium leading-relaxed text-muted-foreground">
+                    {result.description}
+                  </p>
+                  <div className="bg-gray-50 p-5 md:p-6 neo-border rounded-3xl flex gap-4 italic text-sm md:text-base relative overflow-hidden group shadow-neo-sm">
+                    <div className="absolute inset-0 bg-pattern-batik opacity-[0.02] pointer-events-none" />
+                    <div className="bg-coral/10 p-2 rounded-xl h-fit relative z-10 shrink-0 border border-coral/20">
+                      <Info className="w-5 h-5 md:w-6 md:h-6 text-coral" />
                     </div>
-                    <p className="text-lg md:text-2xl font-medium leading-relaxed text-muted-foreground">
-                      {result.description}
-                    </p>
-                    <div className="bg-gray-50 p-6 md:p-8 neo-border rounded-3xl flex gap-6 italic text-base md:text-lg relative overflow-hidden group shadow-neo-sm">
-                      <div className="absolute inset-0 bg-pattern-batik opacity-[0.03] pointer-events-none" />
-                      <div className="bg-coral/20 p-3 rounded-2xl h-fit relative z-10 shrink-0 border border-coral/30">
-                        <Info className="w-6 h-6 md:w-8 md:h-8 text-coral" />
-                      </div>
-                      <p className="leading-relaxed relative z-10"><strong>Filosofi:</strong> {result.philosophy}</p>
-                    </div>
-                    <div className="pt-6 flex flex-col sm:flex-row gap-6">
-                      <button onClick={reset} className="neo-btn bg-black text-white px-10 py-5 rounded-3xl text-lg md:text-xl flex-1 sm:flex-none">
-                        <RefreshCcw className="w-6 h-6" /> Scan Lagi
-                      </button>
-                      <button
-                        onClick={() => setIsDetailOpen(true)}
-                        className="neo-btn bg-white text-black px-10 py-5 rounded-3xl text-lg md:text-xl flex-1 sm:flex-none group"
-                      >
-                        Detail Lengkap <ArrowUpRight className="w-6 h-6 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
-                      </button>
-                    </div>
+                    <p className="leading-relaxed relative z-10"><strong>Filosofi:</strong> {result.philosophy}</p>
+                  </div>
+                  <div className="pt-4 flex flex-col sm:flex-row gap-4">
+                    <button onClick={reset} className="neo-btn bg-black text-white px-8 py-4 rounded-3xl text-base md:text-lg flex-1 sm:flex-none">
+                      <RefreshCcw className="w-5 h-5 mr-2" /> Scan Lagi
+                    </button>
+                    <button
+                      onClick={() => setIsDetailOpen(true)}
+                      className="neo-btn bg-white text-black px-8 py-4 rounded-3xl text-base md:text-lg flex-1 sm:flex-none group"
+                    >
+                      Detail Lengkap <ArrowUpRight className="w-5 h-5 ml-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </button>
                   </div>
                 </div>
               </motion.div>
