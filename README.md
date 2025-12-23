@@ -1,6 +1,6 @@
 # Cloudflare AI Chat Agents Template
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Maftuuh1922/batiklens-ai-batik-classifier)
 
 A production-ready Cloudflare Workers template for building AI-powered chat applications. Features Durable Objects for stateful agents, multi-session management, streaming responses, tool calling (web search, weather, MCP integration), and a modern React frontend with shadcn/ui.
 
@@ -130,7 +130,7 @@ DELETE /api/sessions        # Clear all
    bun wrangler:deploy
    ```
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Maftuuh1922/batiklens-ai-batik-classifier)
 
 **Assets Handling**: Static frontend served via Workers Assets. API routes (`/api/*`) handled by `run_worker_first`.
 
