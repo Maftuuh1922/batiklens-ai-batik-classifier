@@ -23,8 +23,10 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
   const startCamera = useCallback(async () => {
     setError(null);
     try {
-      // Stop previous stream if exists
-      stopTracks(stream);
+      // Clear previous stream safely
+      if (stream) {
+        stopTracks(stream);
+      }
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: 'environment',
@@ -43,7 +45,7 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
         ? "Akses kamera ditolak. Mohon izinkan kamera untuk memindai batik."
         : "Gagal mengakses kamera. Pastikan perangkat Anda mendukung fitur ini.");
     }
-  }, [stream, stopTracks]);
+  }, [stopTracks]); // stream omitted intentionally to avoid loops, handled internally
   // Initial setup and cleanup
   useEffect(() => {
     startCamera();
@@ -52,8 +54,8 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, []); // Only run once on mount
-  // Proper stream cleanup on unmount
+  }, [startCamera]);
+  // Proper stream cleanup on unmount or stream change
   useEffect(() => {
     return () => stopTracks(stream);
   }, [stream, stopTracks]);

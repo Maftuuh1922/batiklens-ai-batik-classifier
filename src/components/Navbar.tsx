@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Camera, Menu, X, ArrowRight } from 'lucide-react';
+import { Camera, Menu, X, ArrowRight, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 import {
   Sheet,
@@ -41,6 +41,17 @@ export function Navbar() {
       window.history.pushState("", document.title, window.location.pathname + window.location.search);
     }
   };
+  const focusSearch = () => {
+    const gallerySection = document.getElementById('gallery');
+    if (gallerySection) {
+      gallerySection.scrollIntoView({ behavior: 'smooth' });
+      // Small timeout to allow scrolling before focus
+      setTimeout(() => {
+        const searchInput = document.getElementById('gallery-search-input');
+        if (searchInput) searchInput.focus();
+      }, 800);
+    }
+  };
   return (
     <nav className={`glass-nav sticky top-0 z-[60] transition-[height,background-color,border-width] duration-500 ease-in-out ${isScrolled ? 'h-18 md:h-20 shadow-neo-sm bg-white/90' : 'h-24 md:h-28 bg-white/70'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
@@ -68,8 +79,25 @@ export function Navbar() {
               BatikLens
             </span>
           </motion.div>
-          <NavLinks className="hidden md:flex items-center gap-10 lg:gap-14" />
-          <div className="md:hidden">
+          <div className="hidden md:flex items-center gap-10 lg:gap-14">
+            <NavLinks className="flex items-center gap-10 lg:gap-14" />
+            <div className="h-8 w-px bg-black/10" />
+            <button 
+              onClick={focusSearch}
+              className="p-3 bg-white neo-border rounded-2xl shadow-neo-sm hover:bg-lime transition-all active:scale-90 group"
+              aria-label="Cari Motif"
+            >
+              <Search className="w-6 h-6 group-hover:scale-110 transition-transform" />
+            </button>
+          </div>
+          <div className="md:hidden flex items-center gap-3">
+            <button 
+              onClick={focusSearch}
+              className="p-2.5 bg-white neo-border rounded-xl shadow-neo-sm active:scale-90"
+              aria-label="Cari Motif"
+            >
+              <Search className="w-5 h-5" />
+            </button>
             <Sheet>
               <SheetTrigger asChild>
                 <Button aria-label="Buka Menu" variant="ghost" size="icon" className="neo-border bg-white hover:bg-lime transition-colors rounded-2xl h-11 w-11 md:h-12 md:w-12 shadow-neo-sm flex items-center justify-center p-0 active:scale-95">

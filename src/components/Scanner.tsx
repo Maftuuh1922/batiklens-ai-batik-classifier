@@ -76,35 +76,31 @@ export function Scanner() {
         </p>
       </div>
       <div className="min-h-[550px] flex flex-col relative z-10">
+        {/* Mode selection buttons outside of AnimatePresence to avoid "wait" conflict */}
+        {(state === 'idle' || state === 'webcam') && (
+          <div className="flex flex-wrap justify-center gap-4 mb-8 z-20">
+            <button
+              onClick={() => switchMode('idle')}
+              className={cn(
+                "neo-btn px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2 transition-all",
+                state === 'idle' ? "bg-lime text-black" : "bg-white text-black hover:bg-lime/50"
+              )}
+            >
+              <Upload className="w-3.5 h-3.5 mr-2" /> UPLOAD FILE
+            </button>
+            <button
+              onClick={() => switchMode('webcam')}
+              className={cn(
+                "neo-btn px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2 transition-all",
+                state === 'webcam' ? "bg-lime text-black" : "bg-white text-black hover:bg-lime/50"
+              )}
+            >
+              <Camera className="w-3.5 h-3.5 mr-2" /> KAMERA LANGSUNG
+            </button>
+          </div>
+        )}
         <NeoCard className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col items-center justify-center relative overflow-hidden rounded-[32px] md:rounded-4xl shadow-neo-sm">
           <AnimatePresence mode="wait">
-            {(state === 'idle' || state === 'webcam') && (
-              <motion.div 
-                key="mode-selection"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex flex-wrap justify-center gap-4 mb-8 z-20"
-              >
-                <button 
-                  onClick={() => switchMode('idle')}
-                  className={cn(
-                    "neo-btn px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2 transition-all",
-                    state === 'idle' ? "bg-lime text-black" : "bg-white text-black hover:bg-lime/50"
-                  )}
-                >
-                  <Upload className="w-3.5 h-3.5 mr-2" /> UPLOAD FILE
-                </button>
-                <button
-                  onClick={() => switchMode('webcam')}
-                  className={cn(
-                    "neo-btn px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2 transition-all",
-                    state === 'webcam' ? "bg-lime text-black" : "bg-white text-black hover:bg-lime/50"
-                  )}
-                >
-                  <Camera className="w-3.5 h-3.5 mr-2" /> KAMERA LANGSUNG
-                </button>
-              </motion.div>
-            )}
             {state === 'idle' && (
               <motion.div
                 key="idle"
