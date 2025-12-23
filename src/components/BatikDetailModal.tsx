@@ -43,14 +43,19 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
       </div>
     );
   }
+  const Wrapper = isMobile ? 'div' : motion.div;
+  const wrapperProps = isMobile 
+    ? { className: "w-full flex flex-col lg:flex-row h-full overflow-hidden" }
+    : {
+        initial: { opacity: 0, scale: 0.95 },
+        animate: { opacity: 1, scale: 1 },
+        exit: { opacity: 0, scale: 0.95 },
+        transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+        className: "w-full flex flex-col lg:flex-row h-full overflow-hidden"
+      };
   return (
-    <motion.div
-      initial={isMobile ? false : { opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: isMobile ? 40 : 0 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="w-full flex flex-col lg:flex-row h-full overflow-hidden"
-    >
+    // @ts-ignore - Wrapper is either div or motion.div
+    <Wrapper {...wrapperProps}>
       <div className="w-full lg:w-1/2 h-[35vh] md:h-96 lg:h-full relative overflow-hidden lg:border-r-3 border-b-3 lg:border-b-0 border-black shrink-0">
         <img
           src={motif.imageUrl}
@@ -117,7 +122,7 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </Wrapper>
   );
 };
 interface BatikDetailModalProps {
@@ -148,7 +153,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
   const CloseButton = (
     <button
       onClick={onClose}
-      className="absolute top-6 right-6 z-[70] bg-white neo-border p-2.5 rounded-xl hover:bg-coral hover:text-white transition-all shadow-neo-sm group active:scale-95"
+      className="absolute top-6 right-6 z-[80] bg-white neo-border p-2.5 rounded-xl hover:bg-coral hover:text-white transition-all shadow-neo-sm group active:scale-95"
       aria-label="Tutup Detail"
     >
       <X className="w-5 h-5 group-hover:rotate-90 transition-transform" />
@@ -157,7 +162,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
-        <DrawerContent className="h-[94vh]">
+        <DrawerContent className="max-h-[85vh] h-full">
           <DrawerHeader className="sr-only">
             <DrawerTitle>{motif?.name || "Detail Batik"}</DrawerTitle>
             <DrawerDescription>Detail Budaya Batik Nusantara</DrawerDescription>
@@ -165,9 +170,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
           <div className="relative flex-grow overflow-hidden flex flex-col">
             {CloseButton}
             <div className="flex-grow overflow-hidden">
-              <AnimatePresence mode="wait">
-                <ModalContent key={motif?.name || 'empty'} motif={motif} isMobile={isMobile} />
-              </AnimatePresence>
+              <ModalContent motif={motif} isMobile={isMobile} />
             </div>
           </div>
         </DrawerContent>

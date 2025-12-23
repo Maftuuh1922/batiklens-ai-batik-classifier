@@ -9,7 +9,7 @@ function BatikMorph() {
     <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none overflow-hidden">
       <motion.svg
         viewBox="0 0 100 100"
-        className="w-[120%] h-[120%] text-coral stroke-[0.5] fill-none"
+        className="w-[120%] h-[120%] md:w-[150%] md:h-[150%] text-coral stroke-[0.5] fill-none scale-150 md:scale-100"
         initial={{ rotate: 0 }}
         animate={{ rotate: 360 }}
         transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
@@ -64,7 +64,7 @@ export function Hero() {
         className="absolute inset-0 bg-pattern-parang pointer-events-none -z-10"
       />
       <BatikMorph />
-      <div className="py-10 md:py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="py-8 md:py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -80,7 +80,7 @@ export function Hero() {
             KECERDASAN BUDAYA NUSANTARA
           </motion.div>
           <motion.div variants={itemVariants} className="space-y-2">
-            <h1 className="text-4xl sm:text-5xl md:text-[3rem] lg:text-7xl font-display font-[900] leading-[1.05] tracking-tight uppercase break-words">
+            <h1 className="text-[2.5rem] leading-[1.1] sm:text-5xl md:text-[3rem] lg:text-7xl font-display font-[900] tracking-tight uppercase break-words">
               <span>IDENTIFIKASI</span>
               <br className="block md:hidden" />
               <span className="md:ml-3 whitespace-nowrap">

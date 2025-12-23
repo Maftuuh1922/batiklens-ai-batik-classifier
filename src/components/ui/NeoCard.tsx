@@ -28,8 +28,8 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
   const mouseY = useSpring(y, { stiffness: 300, damping: 30 });
   const rotateX = useTransform(mouseY, (val) => isMobile ? 0 : val * -15);
   const rotateY = useTransform(mouseX, (val) => isMobile ? 0 : val * 15);
-  const shadowX = useTransform(mouseX, (val) => isMobile ? 4 : 4 + (val * -6));
-  const shadowY = useTransform(mouseY, (val) => isMobile ? 4 : 4 + (val * -6));
+  const shadowX = useTransform(mouseX, (val) => isMobile ? 4 : Math.min(Math.max(4 + (val * -8), -2), 14));
+  const shadowY = useTransform(mouseY, (val) => isMobile ? 4 : Math.min(Math.max(4 + (val * -8), -2), 14));
   const dynamicShadow = useTransform(
     [shadowX, shadowY],
     ([sx, sy]) => `${sx}px ${sy}px 0px 0px #000000`
@@ -42,6 +42,7 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
     if (!ctx) return;
     let particles: Particle[] = [];
     let animationFrame: number;
+    let lastTime = performance.now();
     const colors = ['#A0522D', '#A3E635', '#000000'];
     const shapes: ('diamond' | 'circle' | 'cross')[] = ['diamond', 'circle', 'cross'];
     const createParticle = (x: number, y: number) => {
@@ -56,14 +57,16 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
         life: 1.0
       });
     };
-    const animateParticles = () => {
+    const animateParticles = (time: number) => {
+      const delta = (time - lastTime) / 16.67; // Normalized to 60fps
+      lastTime = time;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles = particles.filter(p => p.life > 0);
       particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.life -= 0.02;
-        ctx.globalAlpha = p.life;
+        p.x += p.vx * delta;
+        p.y += p.vy * delta;
+        p.life -= 0.02 * delta;
+        ctx.globalAlpha = Math.max(0, p.life);
         ctx.fillStyle = p.color;
         ctx.strokeStyle = '#000000';
         ctx.lineWidth = 1;
@@ -88,13 +91,15 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
       animationFrame = requestAnimationFrame(animateParticles);
     };
     const resize = () => {
-      if (cardRef.current && canvas) {
-        canvas.width = cardRef.current.clientWidth;
-        canvas.height = cardRef.current.clientHeight;
+      const currentCanvas = canvasRef.current;
+      const currentCard = cardRef.current;
+      if (currentCard && currentCanvas) {
+        currentCanvas.width = currentCard.clientWidth;
+        currentCanvas.height = currentCard.clientHeight;
       }
     };
     resize();
-    animateParticles();
+    animationFrame = requestAnimationFrame(animateParticles);
     const handleMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       createParticle(e.clientX - rect.left, e.clientY - rect.top);
