@@ -11,30 +11,28 @@ export function Hero() {
         style={{ y: yParallax }}
         className="absolute inset-0 bg-pattern-parang opacity-[0.05] pointer-events-none -z-10"
       />
-      <div className="py-16 md:py-28 lg:py-36 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div className="py-16 md:py-28 lg:py-36 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="relative z-10 space-y-8 md:space-y-12 text-left"
+          className="relative z-10 space-y-8 md:space-y-10 text-left"
         >
           <div className="inline-flex items-center gap-3 bg-lime neo-border shadow-neo-sm px-5 py-2 rounded-3xl text-xs md:text-sm font-black uppercase tracking-[0.25em]">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-40"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-black"></span>
             </span>
-            INDONESIA HERITAGE AI
+            KECERDASAN BUDAYA
           </div>
           <div className="space-y-6">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.85] tracking-tighter uppercase">
-              IDENTIFIKASI <br />
-              <span className="text-coral underline decoration-black decoration-[8px] md:decoration-[14px] underline-offset-[8px] md:underline-offset-[12px]">BATIK</span> <br className="hidden sm:block" />
-              INSTAN.
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-none tracking-tighter uppercase hyphens-none overflow-hidden whitespace-nowrap">
+              IDENTIFIKASI <span className="text-coral underline decoration-black decoration-[8px] md:decoration-[12px] underline-offset-[8px] md:underline-offset-[12px]">BATIK</span>
             </h1>
           </div>
-          <p className="text-lg md:text-2xl lg:text-3xl font-medium text-muted-foreground max-w-xl leading-relaxed border-l-8 border-lime pl-6 md:pl-10">
-            Ungkap identitas, asal daerah, dan filosofi sakral di balik setiap helai kain Batik Nusantara dengan presisi Vision AI termutakhir.
+          <p className="text-xl font-medium text-muted-foreground max-w-md leading-relaxed border-l-8 border-lime pl-6 md:pl-10">
+            Ungkap asal daerah dan filosofi sakral di balik setiap helai kain Nusantara dengan presisi Vision AI termutakhir.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 pt-4">
             <a href="#scanner" className="neo-btn bg-coral text-white text-xl md:text-2xl px-10 py-4 md:py-8 group rounded-3xl shadow-neo transition-all hover:shadow-neo-lg">
@@ -48,16 +46,16 @@ export function Hero() {
             </a>
             <Button variant="outline" className="neo-btn bg-white text-black text-xl md:text-2xl px-10 py-4 md:py-8 rounded-3xl shadow-neo group hover:shadow-neo-lg" asChild>
               <a href="#gallery">
-                Katalog Motif
+                Katalog
                 <Sparkles className="w-6 h-6 ml-3 group-hover:text-coral transition-colors" />
               </a>
             </Button>
           </div>
           <div className="flex flex-wrap gap-x-10 gap-y-6 pt-10 border-t-4 border-black/5">
             {[
-              { icon: Zap, text: "Analisis Real-time" },
-              { icon: Shield, text: "99.4% Akurasi Pola" },
-              { icon: Globe, text: "600+ Database Motif" }
+              { icon: Zap, text: "Analisis Instan" },
+              { icon: Shield, text: "Akurasi Tinggi" },
+              { icon: Globe, text: "600+ Database" }
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-4 font-black italic text-sm md:text-base tracking-tight uppercase group">
                 <div className="bg-lime p-2 neo-border rounded-xl group-hover:rotate-12 transition-transform">
@@ -90,14 +88,14 @@ export function Hero() {
               className="absolute -top-12 -right-12 sm:-top-20 sm:-right-20 w-32 h-32 sm:w-60 sm:h-60 bg-lime neo-border rounded-full flex items-center justify-center p-6 text-center shadow-neo-lg z-20 pointer-events-none"
             >
               <p className="font-display font-black text-[8px] sm:text-[12px] leading-tight uppercase tracking-widest text-black">
-                • ASLI INDONESIA • TEKNOLOGI LOKAL • WARISAN DUNIA • BATIK LENS AI •
+                • ASLI • TEKNOLOGI LOKAL • WARISAN DUNIA • BATIK LENS AI •
               </p>
             </motion.div>
             <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:right-12 bg-white neo-border p-6 md:p-10 rounded-3xl transition-all duration-500 z-10 shadow-neo">
               <div className="flex justify-between items-start mb-4">
                 <div className="space-y-1">
-                  <p className="font-display font-black text-xs md:text-xl text-coral uppercase tracking-tighter">IDENTIFIKASI: PARANG RUSAK</p>
-                  <p className="text-[10px] md:text-sm font-mono font-bold text-muted-foreground">SCAN_ID: BL-4092-X</p>
+                  <p className="font-display font-black text-xs md:text-xl text-coral uppercase tracking-tighter">SCAN_RESULT: PARANG</p>
+                  <p className="text-[10px] md:text-sm font-mono font-bold text-muted-foreground">ID: BL-4092-X</p>
                 </div>
                 <div className="bg-lime neo-border px-4 py-1.5 rounded-4xl text-xs md:text-sm font-black shadow-neo-sm">99.4% MATCH</div>
               </div>

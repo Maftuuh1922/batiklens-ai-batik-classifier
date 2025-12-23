@@ -15,6 +15,7 @@
   }
   h1, h2, h3, h4 {
     @apply font-display tracking-tight;
+    overflow-wrap: normal;
   }
   /* Scroll offset for sticky nav */
   section {
@@ -53,6 +54,11 @@
   }
 }
 @layer utilities {
+  .hyphens-none {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+  }
   .neo-modal-overlay {
     @apply fixed inset-0 z-[1000] bg-black/70 backdrop-blur-md transition-opacity duration-500;
   }
