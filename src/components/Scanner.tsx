@@ -76,7 +76,6 @@ export function Scanner() {
         </p>
       </div>
       <div className="min-h-[550px] flex flex-col relative z-10">
-        {/* Mode selection buttons outside of AnimatePresence to avoid "wait" conflict */}
         {(state === 'idle' || state === 'webcam') && (
           <div className="flex flex-wrap justify-center gap-4 mb-8 z-20">
             <button
@@ -104,6 +103,7 @@ export function Scanner() {
             {state === 'idle' && (
               <motion.div
                 key="idle"
+                layout
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.02 }}
@@ -131,6 +131,7 @@ export function Scanner() {
             {state === 'webcam' && (
               <motion.div
                 key="webcam"
+                layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
@@ -142,6 +143,7 @@ export function Scanner() {
             {state === 'scanning' && (
               <motion.div
                 key="scanning"
+                layout
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -157,20 +159,32 @@ export function Scanner() {
                     <Search className="w-14 h-14 md:w-20 md:h-20 text-black animate-pulse" />
                   </div>
                 </div>
-                <div className="text-center space-y-3">
-                  <h3 className="text-2xl md:text-4xl font-display font-bold text-coral tracking-tighter uppercase animate-pulse">
-                    Menganalisis Pola...
-                  </h3>
-                  <p className="font-mono text-[10px] md:text-xs tracking-[0.2em] text-muted-foreground uppercase font-black">AI Heritage Core v5.1.0</p>
+                <div className="text-center space-y-6 w-full max-w-xs">
+                  <div className="space-y-2">
+                    <h3 className="text-2xl md:text-4xl font-display font-bold text-coral tracking-tighter uppercase animate-pulse">
+                      Menganalisis...
+                    </h3>
+                    <p className="font-mono text-[10px] md:text-xs tracking-[0.2em] text-muted-foreground uppercase font-black">AI Heritage Core v5.1.0</p>
+                  </div>
+                  <div className="w-full h-4 bg-black/5 neo-border rounded-full overflow-hidden p-0.5">
+                    <motion.div
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 2.5, ease: "linear" }}
+                      className="h-full bg-lime rounded-full"
+                    />
+                  </div>
                 </div>
               </motion.div>
             )}
             {state === 'result' && result && (
               <motion.div
                 key="result"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
                 className="w-full h-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-stretch p-2"
               >
                 <div className="w-full lg:w-1/2 neo-border rounded-3xl overflow-hidden shadow-neo-sm bg-gray-100 aspect-square max-w-[400px] shrink-0">

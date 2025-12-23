@@ -11,22 +11,21 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const overlayCanvasRef = useRef<HTMLCanvasElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [isFlashActive, setIsFlashActive] = useState(false);
   const animationFrameRef = useRef<number>();
-  const stopTracks = useCallback((s: MediaStream | null) => {
-    if (s) {
-      s.getTracks().forEach(track => track.stop());
+  const stopTracks = useCallback(() => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
     }
   }, []);
   const startCamera = useCallback(async () => {
     setError(null);
     try {
-      // Clear previous stream safely
-      if (stream) {
-        stopTracks(stream);
-      }
+      stopTracks();
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: 'environment',
@@ -35,6 +34,7 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
         },
         audio: false
       });
+      streamRef.current = mediaStream;
       setStream(mediaStream);
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
@@ -45,21 +45,16 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
         ? "Akses kamera ditolak. Mohon izinkan kamera untuk memindai batik."
         : "Gagal mengakses kamera. Pastikan perangkat Anda mendukung fitur ini.");
     }
-  }, [stopTracks]); // stream omitted intentionally to avoid loops, handled internally
-  // Initial setup and cleanup
+  }, [stopTracks]);
   useEffect(() => {
     startCamera();
     return () => {
+      stopTracks();
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [startCamera]);
-  // Proper stream cleanup on unmount or stream change
-  useEffect(() => {
-    return () => stopTracks(stream);
-  }, [stream, stopTracks]);
-  // Radar Animation logic & Canvas Resize
+  }, [startCamera, stopTracks]);
   useEffect(() => {
     if (!isReady || !overlayCanvasRef.current) return;
     const canvas = overlayCanvasRef.current;
@@ -96,9 +91,7 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
       ctx.stroke();
       ctx.shadowBlur = 0;
       position += speed * direction;
-      if (position >= canvas.height || position <= 0) {
-        direction *= -1;
-      }
+      if (position >= canvas.height || position <= 0) direction *= -1;
       animationFrameRef.current = requestAnimationFrame(animate);
     };
     animate();

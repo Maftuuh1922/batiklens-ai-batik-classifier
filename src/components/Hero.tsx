@@ -80,11 +80,13 @@ export function Hero() {
             KECERDASAN BUDAYA NUSANTARA
           </motion.div>
           <motion.div variants={itemVariants} className="space-y-2">
-            <h1 className="text-4xl sm:text-5xl md:text-[3.5rem] lg:text-7xl font-display font-[900] leading-[1.05] tracking-tight uppercase break-words">
+            <h1 className="text-4xl sm:text-5xl md:text-[3rem] lg:text-7xl font-display font-[900] leading-[1.05] tracking-tight uppercase break-words">
               <span>IDENTIFIKASI</span>
-              <br />
-              <span className="text-coral underline decoration-black decoration-[4px] md:decoration-[8px] lg:decoration-[10px] underline-offset-[4px] md:underline-offset-[8px]">BATIK</span>
-              {" INSTAN."}
+              <br className="block md:hidden" />
+              <span className="md:ml-3 whitespace-nowrap">
+                <span className="text-coral underline decoration-black decoration-[4px] md:decoration-[8px] lg:decoration-[10px] underline-offset-[4px] md:underline-offset-[8px]">BATIK</span>
+                {" INSTAN."}
+              </span>
             </h1>
           </motion.div>
           <motion.p variants={itemVariants} className="text-base md:text-lg lg:text-xl font-medium text-muted-foreground max-w-xl leading-relaxed border-l-4 md:border-l-6 border-lime pl-5 md:pl-8">
