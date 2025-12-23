@@ -6,20 +6,20 @@ const ParangPath = "M0,0 L100,100 M20,0 L100,80 M0,20 L80,100";
 const KawungPath = "M50,0 Q100,0 100,50 Q100,100 50,100 Q0,100 0,50 Q0,0 50,0";
 function BatikMorph() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none overflow-hidden">
       <motion.svg
         viewBox="0 0 100 100"
         className="w-[120%] h-[120%] text-coral stroke-[0.5] fill-none"
         initial={{ rotate: 0 }}
         animate={{ rotate: 360 }}
-        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
       >
         <pattern id="morphPattern" x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse">
           <motion.path
             d={ParangPath}
             animate={{ d: [ParangPath, KawungPath, ParangPath] }}
             transition={{
-              duration: 12,
+              duration: 15,
               repeat: Infinity,
               ease: "easeInOut"
             }}
@@ -80,7 +80,7 @@ export function Hero() {
             KECERDASAN BUDAYA NUSANTARA
           </motion.div>
           <motion.div variants={itemVariants} className="space-y-2">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-[900] leading-[1.1] tracking-tight uppercase break-words">
+            <h1 className="text-4xl sm:text-5xl md:text-[3.5rem] lg:text-7xl font-display font-[900] leading-[1.05] tracking-tight uppercase break-words">
               <span>IDENTIFIKASI</span>
               <br />
               <span className="text-coral underline decoration-black decoration-[4px] md:decoration-[8px] lg:decoration-[10px] underline-offset-[4px] md:underline-offset-[8px]">BATIK</span>

@@ -1,22 +1,27 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, Search, RefreshCcw, Info, Cloud, ArrowUpRight } from 'lucide-react';
+import { Upload, Search, RefreshCcw, Info, Cloud, ArrowUpRight, Camera } from 'lucide-react';
 import { NeoCard } from './ui/NeoCard';
 import { scannerResults } from '@/lib/mockData';
 import { BatikDetailModal } from './BatikDetailModal';
 import { WebcamView } from './WebcamView';
+import { cn } from '@/lib/utils';
 type ScannerState = 'idle' | 'scanning' | 'result' | 'webcam';
 export function Scanner() {
   const [state, setState] = useState<ScannerState>('idle');
   const [result, setResult] = useState<typeof scannerResults[0] | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const scanTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(() => {
-    return () => {
-      if (scanTimerRef.current) clearTimeout(scanTimerRef.current);
-    };
+  const clearScanTimer = useCallback(() => {
+    if (scanTimerRef.current) {
+      clearTimeout(scanTimerRef.current);
+      scanTimerRef.current = null;
+    }
   }, []);
+  useEffect(() => {
+    return () => clearScanTimer();
+  }, [clearScanTimer]);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (state !== 'idle') return;
     const file = acceptedFiles[0];
@@ -31,13 +36,12 @@ export function Scanner() {
     }
   }, [state]);
   const handleCapture = useCallback((imageSrc: string) => {
-    // In a real app, we'd send the imageSrc (base64) to the AI worker
     setState('scanning');
     scanTimerRef.current = setTimeout(() => {
       const randomResult = scannerResults[Math.floor(Math.random() * scannerResults.length)];
-      // We use a random mock result but in production the imageSrc would be analyzed
       setResult(randomResult);
       setState('result');
+      scanTimerRef.current = null;
     }, 2500);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -47,7 +51,13 @@ export function Scanner() {
     disabled: state !== 'idle'
   });
   const reset = () => {
+    clearScanTimer();
     setState('idle');
+    setResult(null);
+  };
+  const switchMode = (newMode: ScannerState) => {
+    clearScanTimer();
+    setState(newMode);
     setResult(null);
   };
   return (
@@ -65,9 +75,36 @@ export function Scanner() {
           Unggah foto batik Anda untuk analisis AI Vision yang akurat berdasarkan arsip budaya Nusantara.
         </p>
       </div>
-      <div className="min-h-[500px] flex flex-col relative z-10">
+      <div className="min-h-[550px] flex flex-col relative z-10">
         <NeoCard className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col items-center justify-center relative overflow-hidden rounded-[32px] md:rounded-4xl shadow-neo-sm">
           <AnimatePresence mode="wait">
+            {(state === 'idle' || state === 'webcam') && (
+              <motion.div 
+                key="mode-selection"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex flex-wrap justify-center gap-4 mb-8 z-20"
+              >
+                <button 
+                  onClick={() => switchMode('idle')}
+                  className={cn(
+                    "neo-btn px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2 transition-all",
+                    state === 'idle' ? "bg-lime text-black" : "bg-white text-black hover:bg-lime/50"
+                  )}
+                >
+                  <Upload className="w-3.5 h-3.5 mr-2" /> UPLOAD FILE
+                </button>
+                <button
+                  onClick={() => switchMode('webcam')}
+                  className={cn(
+                    "neo-btn px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2 transition-all",
+                    state === 'webcam' ? "bg-lime text-black" : "bg-white text-black hover:bg-lime/50"
+                  )}
+                >
+                  <Camera className="w-3.5 h-3.5 mr-2" /> KAMERA LANGSUNG
+                </button>
+              </motion.div>
+            )}
             {state === 'idle' && (
               <motion.div
                 key="idle"
@@ -76,18 +113,12 @@ export function Scanner() {
                 exit={{ opacity: 0, scale: 1.02 }}
                 className="w-full h-full flex flex-col flex-grow"
               >
-                <div className="flex flex-wrap justify-center gap-4 mb-8">
-                   <button className="neo-btn bg-lime text-black px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2">UPLOAD FILE</button>
-                   <button 
-                    onClick={() => setState('webcam')}
-                    className="neo-btn bg-white text-black px-6 py-2 rounded-2xl text-xs font-black shadow-neo-sm border-2 hover:bg-coral hover:text-white transition-colors"
-                   >KAMERA LANGSUNG</button>
-                </div>
                 <div
                   {...getRootProps()}
-                  className={`relative neo-border border-dashed border-black/20 p-8 md:p-16 rounded-3xl flex flex-col items-center gap-6 md:gap-10 cursor-pointer transition-all h-full justify-center flex-grow group ${
+                  className={cn(
+                    "relative neo-border border-dashed border-black/20 p-8 md:p-16 rounded-3xl flex flex-col items-center gap-6 md:gap-10 cursor-pointer transition-all h-full justify-center flex-grow group",
                     isDragActive ? 'bg-lime/10 border-lime' : 'bg-gray-50/50 hover:bg-gray-100'
-                  }`}
+                  )}
                 >
                   <div className="absolute inset-0 bg-pattern-parang opacity-[0.03] pointer-events-none" />
                   <input {...getInputProps()} />
@@ -107,9 +138,9 @@ export function Scanner() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="w-full h-full min-h-[500px]"
+                className="w-full h-full min-h-[450px]"
               >
-                <WebcamView onCapture={handleCapture} onClose={() => setState('idle')} />
+                <WebcamView onCapture={handleCapture} onClose={() => switchMode('idle')} />
               </motion.div>
             )}
             {state === 'scanning' && (
@@ -169,15 +200,15 @@ export function Scanner() {
                   <div className="pt-4 flex flex-col sm:flex-row gap-4">
                     <button
                       onClick={reset}
-                      className="neo-btn bg-black text-white px-8 py-4 rounded-2xl text-base flex-1 shadow-neo-sm"
+                      className="neo-btn bg-black text-white px-6 py-4 md:px-8 rounded-2xl text-sm md:text-base flex-1 shadow-neo-sm"
                     >
                       <RefreshCcw className="w-5 h-5 mr-2" /> Scan Ulang
                     </button>
                     <button
                       onClick={() => setIsDetailOpen(true)}
-                      className="neo-btn bg-white text-black px-8 py-4 rounded-2xl text-base flex-1 group shadow-neo-sm"
+                      className="neo-btn bg-white text-black px-6 py-4 md:px-8 rounded-2xl text-sm md:text-base flex-1 group shadow-neo-sm"
                     >
-                      Pelajari Lebih <ArrowUpRight className="w-5 h-5 ml-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      Arsip <ArrowUpRight className="w-5 h-5 ml-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </button>
                   </div>
                 </div>

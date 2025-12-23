@@ -15,11 +15,18 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
   const [isReady, setIsReady] = useState(false);
   const [isFlashActive, setIsFlashActive] = useState(false);
   const animationFrameRef = useRef<number>();
+  const stopTracks = useCallback((s: MediaStream | null) => {
+    if (s) {
+      s.getTracks().forEach(track => track.stop());
+    }
+  }, []);
   const startCamera = useCallback(async () => {
     setError(null);
     try {
+      // Stop previous stream if exists
+      stopTracks(stream);
       const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { 
+        video: {
           facingMode: 'environment',
           width: { ideal: 1280 },
           height: { ideal: 720 }
@@ -32,23 +39,25 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
       }
     } catch (err: any) {
       console.error("Camera access error:", err);
-      setError(err.name === 'NotAllowedError' 
-        ? "Akses kamera ditolak. Mohon izinkan kamera untuk memindai batik." 
+      setError(err.name === 'NotAllowedError'
+        ? "Akses kamera ditolak. Mohon izinkan kamera untuk memindai batik."
         : "Gagal mengakses kamera. Pastikan perangkat Anda mendukung fitur ini.");
     }
-  }, []);
+  }, [stream, stopTracks]);
+  // Initial setup and cleanup
   useEffect(() => {
     startCamera();
     return () => {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, []);
-  // Radar Animation logic
+  }, []); // Only run once on mount
+  // Proper stream cleanup on unmount
+  useEffect(() => {
+    return () => stopTracks(stream);
+  }, [stream, stopTracks]);
+  // Radar Animation logic & Canvas Resize
   useEffect(() => {
     if (!isReady || !overlayCanvasRef.current) return;
     const canvas = overlayCanvasRef.current;
@@ -57,9 +66,17 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
     let position = 0;
     let direction = 1;
     const speed = 2.5;
+    const resizeOverlay = () => {
+      const parent = canvas.parentElement;
+      if (parent) {
+        canvas.width = parent.clientWidth;
+        canvas.height = parent.clientHeight;
+      }
+    };
+    resizeOverlay();
+    window.addEventListener('resize', resizeOverlay);
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // Draw Scanning Line
       const y = position;
       const gradient = ctx.createLinearGradient(0, y - 20, 0, y + 20);
       gradient.addColorStop(0, 'transparent');
@@ -67,7 +84,6 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
       gradient.addColorStop(1, 'transparent');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, y - 2, canvas.width, 4);
-      // Glow effect
       ctx.shadowBlur = 15;
       ctx.shadowColor = '#A3E635';
       ctx.strokeStyle = '#A3E635';
@@ -86,6 +102,7 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
     animate();
     return () => {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+      window.removeEventListener('resize', resizeOverlay);
     };
   }, [isReady]);
   const captureFrame = () => {
@@ -98,7 +115,6 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
     if (context) {
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
-      // Mirror the capture if needed, but usually environment camera doesn't need it
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
       const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
       onCapture(dataUrl);
@@ -108,7 +124,7 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
     <div className="relative w-full h-full min-h-[400px] flex flex-col items-center justify-center bg-black rounded-3xl overflow-hidden neo-border">
       <AnimatePresence>
         {isFlashActive && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -142,12 +158,9 @@ export function WebcamView({ onCapture, onClose }: WebcamViewProps) {
           />
           <canvas
             ref={overlayCanvasRef}
-            width={800}
-            height={600}
             className="absolute inset-0 w-full h-full pointer-events-none z-10"
           />
           <canvas ref={canvasRef} className="hidden" />
-          {/* Controls */}
           <div className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-8 z-20">
             <button
               onClick={onClose}
