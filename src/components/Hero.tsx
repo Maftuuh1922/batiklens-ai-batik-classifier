@@ -2,9 +2,40 @@ import React from 'react';
 import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap, Shield, Globe, Sparkles } from 'lucide-react';
+const ParangPath = "M0,0 L100,100 M20,0 L100,80 M0,20 L80,100";
+const KawungPath = "M50,0 Q100,0 100,50 Q100,100 50,100 Q0,100 0,50 Q0,0 50,0";
+function BatikMorph() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none overflow-hidden">
+      <motion.svg
+        viewBox="0 0 100 100"
+        className="w-[150%] h-[150%] text-coral stroke-[0.5] fill-none"
+        initial={{ rotate: 0 }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
+      >
+        <pattern id="morphPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+          <motion.path
+            d={ParangPath}
+            animate={{ d: [ParangPath, KawungPath, ParangPath] }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            stroke="currentColor"
+            strokeWidth="1"
+          />
+        </pattern>
+        <rect width="100" height="100" fill="url(#morphPattern)" />
+      </motion.svg>
+    </div>
+  );
+}
 export function Hero() {
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 500], [0, -150]);
+  const rotateParallax = useTransform(scrollY, [0, 1000], [0, 10]);
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -17,21 +48,22 @@ export function Hero() {
   };
   const itemVariants: Variants = {
     hidden: { opacity: 0, x: -30 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 0.6, 
-        ease: "easeOut" 
-      } 
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
     },
   };
   return (
     <section id="home" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
       <motion.div
-        style={{ y: yParallax }}
+        style={{ y: yParallax, rotate: rotateParallax }}
         className="absolute inset-0 bg-pattern-parang pointer-events-none -z-10"
       />
+      <BatikMorph />
       <div className="py-12 md:py-20 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
         <motion.div
           variants={containerVariants}
