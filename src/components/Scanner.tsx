@@ -1,13 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, Search, RefreshCcw, Info, Cloud } from 'lucide-react';
+import { Upload, Search, RefreshCcw, Info, Cloud, ArrowUpRight } from 'lucide-react';
 import { NeoCard } from './ui/NeoCard';
 import { scannerResults } from '@/lib/mockData';
+import { BatikDetailModal } from './BatikDetailModal';
 type ScannerState = 'idle' | 'scanning' | 'result';
 export function Scanner() {
   const [state, setState] = useState<ScannerState>('idle');
   const [result, setResult] = useState<typeof scannerResults[0] | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       setState('scanning');
@@ -29,15 +31,14 @@ export function Scanner() {
   };
   return (
     <section id="scanner" className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 overflow-hidden">
-      {/* Mega Mendung Decorative Clouds */}
-      <motion.div 
+      <motion.div
         animate={{ x: [-20, 20, -20] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-10 -left-10 opacity-10 text-coral pointer-events-none"
       >
         <Cloud size={120} fill="currentColor" />
       </motion.div>
-      <motion.div 
+      <motion.div
         animate={{ x: [20, -20, 20] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         className="absolute bottom-20 -right-10 opacity-10 text-lime pointer-events-none"
@@ -65,7 +66,6 @@ export function Scanner() {
                     isDragActive ? 'bg-lime/20' : 'bg-gray-50'
                   }`}
                 >
-                  {/* Subtle Background Texture for Idle State */}
                   <div className="absolute inset-0 bg-pattern-parang opacity-[0.05] pointer-events-none" />
                   <input {...getInputProps()} />
                   <div className="bg-coral p-4 neo-border rounded-xl relative z-10">
@@ -138,9 +138,15 @@ export function Scanner() {
                       </div>
                       <p className="leading-relaxed relative z-10"><strong>Filosofi:</strong> {result.philosophy}</p>
                     </div>
-                    <div className="pt-4">
-                      <button onClick={reset} className="neo-btn bg-black text-white px-10 w-full md:w-auto">
+                    <div className="pt-4 flex flex-col sm:flex-row gap-4">
+                      <button onClick={reset} className="neo-btn bg-black text-white px-8 flex-1 sm:flex-none">
                         <RefreshCcw className="w-4 h-4" /> Scan Lagi
+                      </button>
+                      <button 
+                        onClick={() => setIsDetailOpen(true)}
+                        className="neo-btn bg-white text-black px-8 flex-1 sm:flex-none"
+                      >
+                        Detail Lengkap <ArrowUpRight className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
@@ -150,6 +156,11 @@ export function Scanner() {
           </AnimatePresence>
         </NeoCard>
       </div>
+      <BatikDetailModal 
+        isOpen={isDetailOpen} 
+        onClose={() => setIsDetailOpen(false)} 
+        motif={result} 
+      />
     </section>
   );
 }

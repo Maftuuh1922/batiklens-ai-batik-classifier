@@ -24,7 +24,6 @@
   .glass-nav {
     @apply sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b-3 border-black;
   }
-  /* Phase 3: Batik Pattern Utilities */
   .bg-pattern-batik {
     background-image: url('https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=40&w=400');
     background-repeat: repeat;
@@ -39,4 +38,16 @@
     mask-image: linear-gradient(to bottom, black, transparent);
     -webkit-mask-image: linear-gradient(to bottom, black, transparent);
   }
+  /* Modal Utilities */
+  .neo-modal-overlay {
+    @apply bg-black/40 backdrop-blur-sm transition-all duration-300;
+  }
+}
+/* Custom shadow for larger containers */
+.shadow-neo-lg {
+  box-shadow: 10px 10px 0px 0px #000000;
+}
+/* Responsive adjustments for Dialog content */
+[data-radix-portal] {
+  @apply relative z-[100];
 }
