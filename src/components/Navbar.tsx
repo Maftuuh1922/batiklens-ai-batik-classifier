@@ -41,7 +41,7 @@ export function Navbar() {
     }
   };
   return (
-    <nav className={`glass-nav sticky top-0 z-[60] transition-all duration-300 ${isScrolled ? 'h-18 md:h-20 shadow-neo-sm' : 'h-24 md:h-28'}`}>
+    <nav className={`glass-nav sticky top-0 z-[60] transition-[height,background-color,border-width] duration-500 ease-in-out ${isScrolled ? 'h-18 md:h-20 shadow-neo-sm bg-white/90' : 'h-24 md:h-28 bg-white/70'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between items-center h-full">
           <motion.div
@@ -70,7 +70,7 @@ export function Navbar() {
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="neo-border bg-white hover:bg-lime transition-colors rounded-2xl h-11 w-11 md:h-12 md:w-12 shadow-neo-sm flex items-center justify-center p-0">
+                <Button variant="ghost" size="icon" className="neo-border bg-white hover:bg-lime transition-colors rounded-2xl h-11 w-11 md:h-12 md:w-12 shadow-neo-sm flex items-center justify-center p-0 active:scale-95">
                   <Menu className="w-6 h-6 md:w-8 md:h-8" />
                 </Button>
               </SheetTrigger>
@@ -86,7 +86,7 @@ export function Navbar() {
                       </SheetTitle>
                     </div>
                     <SheetClose asChild>
-                      <Button variant="ghost" size="icon" className="neo-border bg-white rounded-xl h-10 w-10 shadow-neo-sm active:scale-95">
+                      <Button variant="ghost" size="icon" className="neo-border bg-white rounded-xl h-10 w-10 shadow-neo-sm active:scale-90 hover:bg-coral hover:text-white transition-all">
                         <X className="h-6 w-6" />
                       </Button>
                     </SheetClose>

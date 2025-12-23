@@ -37,7 +37,10 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
   if (!motif) {
     return (
       <div className="w-full flex flex-col items-center justify-center p-20 min-h-[400px]">
-        <Loader2 className="w-12 h-12 text-coral animate-spin mb-4" />
+        <div className="relative flex items-center justify-center">
+          <Loader2 className="w-12 h-12 text-coral animate-spin mb-4" />
+          <div className="absolute inset-0 bg-coral/5 rounded-full animate-ping -z-10" />
+        </div>
         <p className="font-display font-bold text-muted-foreground uppercase tracking-widest text-sm text-center">
           Menyiapkan Arsip Budaya...
         </p>
@@ -51,7 +54,7 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="w-full flex flex-col lg:flex-row h-full overflow-hidden"
     >
-      <div className="w-full lg:w-1/2 h-[40vh] sm:h-80 lg:h-full relative overflow-hidden lg:border-r-3 border-black shrink-0 lg:rounded-l-4xl">
+      <div className="w-full lg:w-1/2 h-[35vh] sm:h-80 lg:h-full relative overflow-hidden lg:border-r-3 border-black shrink-0 lg:rounded-l-4xl">
         <img
           src={motif.imageUrl}
           alt={motif.name}
@@ -71,14 +74,14 @@ const ModalContent = ({ motif, isMobile }: ModalContentProps) => {
       </div>
       <div className="flex-1 h-full flex flex-col bg-white overflow-hidden relative">
         <div className="absolute inset-0 bg-pattern-parang opacity-[0.03] pointer-events-none" />
-        <div className="flex-grow overflow-y-auto p-6 md:p-8 scrollbar-thin scrollbar-thumb-black/20">
-          <div className="space-y-10 md:space-y-12">
+        <div className="flex-grow overflow-y-auto p-6 md:p-8 lg:p-12 scrollbar-thin scrollbar-thumb-black/20">
+          <div className="space-y-10 md:space-y-12 max-w-2xl mx-auto lg:mx-0">
             <div className="space-y-6">
               <h2 className="text-3xl sm:text-4xl lg:text-7xl font-display font-bold uppercase tracking-tighter leading-[0.9] text-coral pr-12 lg:pr-16">
                 {motif.name}
               </h2>
               <div className="h-2 w-24 bg-lime neo-border rounded-full" />
-              <p className="text-lg lg:text-xl font-medium text-black/80 leading-relaxed max-w-xl">
+              <p className="text-lg lg:text-xl font-medium text-black/80 leading-relaxed">
                 {motif.description}
               </p>
             </div>
@@ -154,7 +157,7 @@ export function BatikDetailModal({ isOpen, onClose, motif }: BatikDetailModalPro
               <SheetTitle>{motif?.name || "Detail Batik"}</SheetTitle>
               <SheetDescription>Informasi detail motif batik Nusantara.</SheetDescription>
             </SheetHeader>
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-1.5 bg-black/20 rounded-full z-[71]" />
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-black/20 rounded-full z-[71]" />
             <button
               onClick={onClose}
               className="absolute top-5 right-5 bg-white neo-border p-2.5 rounded-2xl hover:bg-coral hover:text-white transition-all shadow-neo-sm z-[70] active:scale-90"

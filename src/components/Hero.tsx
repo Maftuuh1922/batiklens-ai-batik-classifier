@@ -27,10 +27,10 @@ export function Hero() {
             KECERDASAN BUDAYA
           </div>
           <div className="space-y-2">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-[0.9] tracking-tighter uppercase hyphens-none flex flex-col md:block md:whitespace-nowrap">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold leading-[0.9] tracking-tighter uppercase hyphens-none flex flex-col lg:block lg:whitespace-nowrap">
               <span>IDENTIFIKASI</span>
-              <span className="md:ml-4">
-                <span className="text-coral underline decoration-black decoration-[6px] md:decoration-[10px] underline-offset-[6px] md:underline-offset-[10px]">BATIK</span>
+              <span className="lg:ml-4">
+                <span className="text-coral underline decoration-black decoration-[6px] md:decoration-[8px] lg:decoration-[10px] underline-offset-[6px] md:underline-offset-[10px]">BATIK</span>
                 {" INSTAN."}
               </span>
             </h1>
