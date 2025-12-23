@@ -16,9 +16,13 @@
   h1, h2, h3, h4 {
     @apply font-display tracking-tight;
   }
-  /* Standardizing all card-like elements to 24px */
-  .rounded-2xl {
-    border-radius: 24px !important;
+  /* Standardizing layout containers to 40px */
+  .rounded-4xl {
+    border-radius: 40px !important;
+  }
+  /* Standardizing cards and major components to 32px */
+  .rounded-3xl {
+    border-radius: 32px !important;
   }
 }
 @layer components {
@@ -31,7 +35,7 @@
     transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .neo-btn {
-    @apply neo-border neo-shadow px-4 py-2 md:px-6 md:py-3 rounded-2xl font-bold transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-neo-lg flex items-center justify-center gap-2 text-sm md:text-base;
+    @apply neo-border neo-shadow px-4 py-2 md:px-6 md:py-3 rounded-3xl font-bold transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-neo-lg flex items-center justify-center gap-2 text-sm md:text-base;
   }
   .glass-nav {
     @apply sticky top-0 z-[60] bg-white/70 backdrop-blur-md border-b-3 border-black;
@@ -63,15 +67,10 @@
   .scrollbar-thin::-webkit-scrollbar-thumb {
     @apply bg-black/30 rounded-full hover:bg-black/50 transition-colors;
   }
-  .leading-tight-mobile {
-    @apply leading-[1.0] sm:leading-tight;
-  }
 }
-/* Ensure Radix portals are above everything else */
 [data-radix-portal] {
   @apply relative z-[1001];
 }
-/* Prevent layout shifts during Framer Motion transitions */
 .motion-safe-layout {
   backface-visibility: hidden;
   transform-style: preserve-3d;

@@ -43,7 +43,7 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
   const cardContent = (
     <div
       className={cn(
-        "bg-white neo-border rounded-2xl overflow-hidden h-full flex flex-col",
+        "bg-white neo-border rounded-3xl overflow-hidden h-full flex flex-col",
         (!animate || isMobile) && "neo-shadow",
         className
       )}
@@ -63,9 +63,9 @@ export function NeoCard({ children, className, animate = false }: NeoCardProps) 
             rotateY,
             boxShadow: dynamicShadow,
             transformStyle: "preserve-3d",
-            willChange: "transform"
+            willChange: "transform, box-shadow"
           }}
-          className="h-full rounded-2xl transition-shadow duration-300 ease-out"
+          className="h-full rounded-3xl transition-shadow duration-300 ease-out"
         >
           {cardContent}
         </motion.div>
