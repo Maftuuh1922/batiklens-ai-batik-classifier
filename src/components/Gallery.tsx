@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NeoCard } from './ui/NeoCard';
 import { galleryItems, type BatikMotif } from '@/lib/mockData';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { BatikDetailModal } from './BatikDetailModal';
 import { ArrowRight } from 'lucide-react';
 export function Gallery() {
@@ -11,7 +11,7 @@ export function Gallery() {
     setSelectedMotif(item);
     setIsModalOpen(true);
   };
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -20,9 +20,16 @@ export function Gallery() {
       },
     },
   };
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.5, 
+        ease: "easeOut" 
+      } 
+    },
   };
   return (
     <section id="gallery" className="relative w-full py-20 md:py-40 bg-lime/10 border-y-3 border-black overflow-hidden">

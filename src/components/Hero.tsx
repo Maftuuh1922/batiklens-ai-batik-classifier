@@ -1,11 +1,11 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap, Shield, Globe, Sparkles } from 'lucide-react';
 export function Hero() {
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 500], [0, -150]);
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -15,9 +15,16 @@ export function Hero() {
       },
     },
   };
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, x: -30 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      transition: { 
+        duration: 0.6, 
+        ease: "easeOut" 
+      } 
+    },
   };
   return (
     <section id="home" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
